@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const testimonials = [
+// Avis de fallback si pas d'API Google configurée
+const fallbackTestimonials = [
   {
     id: 1,
     name: "Marie L.",
@@ -59,10 +60,61 @@ const testimonials = [
   },
 ];
 
+interface Review {
+  id: number;
+  name: string;
+  rating: number;
+  text: string;
+  date: string;
+  relativeTime?: string;
+  location?: string;
+  service?: string;
+  profilePhotoUrl?: string | null;
+}
+
 export default function TestimonialsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [reviewsData, setReviewsData] = useState<{
+    rating: number;
+    totalRatings: number;
+    reviews: Review[];
+  }>({
+    rating: 5.0,
+    totalRatings: 5014,
+    reviews: fallbackTestimonials,
+  });
+  const [loading, setLoading] = useState(true);
 
-  const visibleTestimonials = testimonials.slice(0, 6);
+  useEffect(() => {
+    async function fetchReviews() {
+      try {
+        const response = await fetch("/api/reviews");
+        const data = await response.json();
+        if (data.reviews && data.reviews.length > 0) {
+          // Mapper les avis Google vers notre format
+          const formattedReviews = data.reviews.map((review: Review) => ({
+            ...review,
+            location: review.location || "Gard",
+            service: review.service || "Service plomberie",
+          }));
+          setReviewsData({
+            rating: data.rating || 5.0,
+            totalRatings: data.totalRatings || 5014,
+            reviews: formattedReviews,
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+        // Garder les avis de fallback
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchReviews();
+  }, []);
+
+  const visibleTestimonials = reviewsData.reviews.slice(0, 6);
 
   return (
     <section id="avis" className="py-20 md:py-28 bg-primary-950 text-white relative overflow-hidden">
@@ -98,12 +150,12 @@ export default function TestimonialsSection() {
             </div>
             <div className="h-8 w-px bg-white/20"></div>
             <div>
-              <span className="text-2xl font-bold">5.0</span>
+              <span className="text-2xl font-bold">{reviewsData.rating.toFixed(1)}</span>
               <span className="text-primary-300 ml-2">sur Google</span>
             </div>
             <div className="h-8 w-px bg-white/20"></div>
             <div className="text-primary-200">
-              <span className="font-semibold text-white">5014</span> avis
+              <span className="font-semibold text-white">{reviewsData.totalRatings.toLocaleString('fr-FR')}</span> avis
             </div>
           </div>
         </div>
@@ -121,16 +173,24 @@ export default function TestimonialsSection() {
               {/* Header */}
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center font-bold text-lg">
-                    {testimonial.name.charAt(0)}
-                  </div>
+                  {testimonial.profilePhotoUrl ? (
+                    <img
+                      src={testimonial.profilePhotoUrl}
+                      alt={testimonial.name}
+                      className="w-12 h-12 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center font-bold text-lg">
+                      {testimonial.name.charAt(0)}
+                    </div>
+                  )}
                   <div>
                     <h4 className="font-semibold">{testimonial.name}</h4>
-                    <p className="text-sm text-primary-300">{testimonial.location}</p>
+                    <p className="text-sm text-primary-300">{testimonial.location || "Gard"}</p>
                   </div>
                 </div>
                 <div className="flex">
-                  {[...Array(testimonial.rating)].map((_, i) => (
+                  {[...Array(Math.min(testimonial.rating, 5))].map((_, i) => (
                     <svg key={i} className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
@@ -144,9 +204,9 @@ export default function TestimonialsSection() {
               {/* Footer */}
               <div className="flex items-center justify-between text-sm">
                 <span className="inline-block bg-primary-800/50 text-primary-200 px-3 py-1 rounded-full">
-                  {testimonial.service}
+                  {testimonial.service || "Service"}
                 </span>
-                <span className="text-primary-400">{testimonial.date}</span>
+                <span className="text-primary-400">{testimonial.relativeTime || testimonial.date}</span>
               </div>
             </div>
           ))}

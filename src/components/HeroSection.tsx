@@ -1,4 +1,5 @@
 import ImageWithFallback from "./ImageWithFallback";
+import GoogleRatingBadge from "./GoogleRatingBadge";
 
 export default function HeroSection() {
   return (
@@ -48,17 +49,7 @@ export default function HeroSection() {
 
             {/* Trust indicators */}
             <div className="flex flex-wrap items-center gap-6 mb-8 animate-fade-in-up stagger-3">
-              <div className="flex items-center gap-2">
-                <div className="flex -space-x-1">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                <span className="font-semibold">5.0</span>
-                <span className="text-primary-200">(5014 avis Google)</span>
-              </div>
+              <GoogleRatingBadge />
               <div className="h-6 w-px bg-white/20"></div>
               <div className="flex items-center gap-2">
                 <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -98,23 +89,21 @@ export default function HeroSection() {
           {/* Image/Visual */}
           <div className="relative hidden lg:block">
             <div className="relative">
-              {/* Main image placeholder */}
+              {/* Image carousel from travaux */}
               <div className="relative w-full aspect-square max-w-lg mx-auto">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-400/20 to-accent/20 rounded-3xl backdrop-blur-sm border border-white/10"></div>
-                <div className="absolute inset-4 bg-white/5 rounded-2xl flex items-center justify-center overflow-hidden">
-                  {/* Placeholder pour image plombier */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-400/20 to-accent/20 rounded-3xl backdrop-blur-sm border border-white/10 overflow-hidden">
                   <ImageWithFallback
-                    src="/hero-plombier.jpg"
-                    alt="Plombier professionnel Cassard à Nîmes"
+                    src="/Travaux/IMG_20251208_171110.jpg"
+                    alt="Réalisations plomberie Cassard à Nîmes"
                     fill
-                    className="object-cover rounded-2xl"
+                    className="object-cover rounded-3xl"
                     priority
                     fallback={
                       <div className="text-white/30 flex flex-col items-center gap-4">
                         <svg className="w-32 h-32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                         </svg>
-                        <span className="text-sm">Image plombier</span>
+                        <span className="text-sm">Nos réalisations</span>
                       </div>
                     }
                   />

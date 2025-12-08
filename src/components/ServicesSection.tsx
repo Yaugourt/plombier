@@ -12,7 +12,7 @@ const services = [
       </svg>
     ),
     features: ["Réparation de fuites", "Débouchage", "Installation robinetterie", "Canalisations"],
-    image: "/service-plomberie.jpg",
+    image: "/Travaux/IMG_20251208_171110.jpg",
   },
   {
     id: "chauffage",
@@ -26,7 +26,7 @@ const services = [
       </svg>
     ),
     features: ["Chaudières gaz/fioul", "Pompes à chaleur", "Radiateurs", "Plancher chauffant"],
-    image: "/service-chauffage.jpg",
+    image: "/Travaux/IMG_20251208_171115.jpg",
   },
   {
     id: "sanitaire",
@@ -39,7 +39,7 @@ const services = [
       </svg>
     ),
     features: ["Salle de bain", "WC / Toilettes", "Douche à l'italienne", "Baignoire"],
-    image: "/service-sanitaire.jpg",
+    image: "/Travaux/IMG_20251208_171117.jpg",
   },
   {
     id: "urgence",
@@ -52,7 +52,7 @@ const services = [
       </svg>
     ),
     features: ["Intervention rapide", "Disponible 24h/24", "Week-end et jours fériés", "Devis sur place"],
-    image: "/service-urgence.jpg",
+    image: "/Travaux/IMG_20251208_171120.jpg",
     highlight: true,
   },
 ];
