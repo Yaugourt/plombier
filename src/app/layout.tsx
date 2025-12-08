@@ -20,23 +20,37 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://cassard-plombier.fr"),
   title: {
-    default: "Cassard Plombier Nîmes | Sanitaire & Chauffage 24h/24 | Gard (30)",
-    template: "%s | Cassard Plombier Nîmes",
+    default: "Urgence Plombier Nîmes Gard 24h/24 | Cassard Sanitaire et Chauffage",
+    template: "%s | Urgence Plombier Nîmes Gard",
   },
   description:
-    "Cassard Sanitaire et Chauffage, votre plombier de confiance à Nîmes et dans le Gard. Intervention 24h/24, 7j/7. Plus de 5000 avis clients positifs. Devis gratuit au 06 19 24 25 56.",
+    "Urgence plombier Nîmes Gard - Intervention rapide 24h/24, 7j/7. Cassard Sanitaire et Chauffage, votre plombier d'urgence dans le Gard (30), Hérault (34), Bouches-du-Rhône (13) et Vaucluse (84). Plus de 5000 avis clients. Appelez le 06 19 24 25 56.",
   keywords: [
+    "urgence plombier Nîmes",
+    "urgence plombier Gard",
+    "plombier urgence Nîmes",
+    "plombier urgence Gard",
     "plombier Nîmes",
     "plombier Gard",
+    "plombier Hérault",
+    "plombier Montpellier",
+    "plombier Bouches-du-Rhône",
+    "plombier Marseille",
+    "plombier Vaucluse",
+    "plombier Avignon",
     "plombier 30",
+    "plombier 34",
+    "plombier 13",
+    "plombier 84",
     "chauffagiste Nîmes",
     "sanitaire Nîmes",
     "dépannage plomberie Nîmes",
-    "urgence plombier Gard",
     "fuite d'eau Nîmes",
     "installation chauffage Gard",
     "Cassard plombier",
     "plombier 24h/24 Nîmes",
+    "plombier 24h/24 Gard",
+    "plombier urgence Hérault",
   ],
   authors: [{ name: "Cassard Sanitaire et Chauffage" }],
   creator: "Cassard Sanitaire et Chauffage",
@@ -45,9 +59,9 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: "https://cassard-plombier.fr",
     siteName: "Cassard Sanitaire et Chauffage",
-    title: "Cassard Plombier Nîmes | Sanitaire & Chauffage 24h/24",
+    title: "Urgence Plombier Nîmes Gard 24h/24 | Intervention rapide",
     description:
-      "Votre plombier de confiance à Nîmes et dans le Gard. Intervention rapide 24h/24. Plus de 5000 avis positifs.",
+      "Urgence plombier Nîmes Gard - Intervention 24h/24 dans le Gard, Hérault, Bouches-du-Rhône et Vaucluse. Plus de 5000 avis positifs. Appelez le 06 19 24 25 56.",
     images: [
       {
         url: "/og-image.jpg",
@@ -59,9 +73,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cassard Plombier Nîmes | Sanitaire & Chauffage 24h/24",
+    title: "Urgence Plombier Nîmes Gard 24h/24 | Intervention rapide",
     description:
-      "Votre plombier de confiance à Nîmes et dans le Gard. Intervention rapide 24h/24.",
+      "Urgence plombier Nîmes Gard - Intervention 24h/24 dans le Gard, Hérault, Bouches-du-Rhône et Vaucluse.",
     images: ["/og-image.jpg"],
   },
   robots: {

@@ -13,15 +13,19 @@ const services = [
   "Rénovation",
 ];
 
-const zones = [
-  "Nîmes",
-  "Alès",
-  "Bagnols-sur-Cèze",
-  "Beaucaire",
-  "Vauvert",
-  "Uzès",
-  "Saint-Gilles",
-  "Tout le Gard (30)",
+  const zones = [
+  "Nîmes (30)",
+  "Montpellier (34)",
+  "Marseille (13)",
+  "Avignon (84)",
+  "Alès (30)",
+  "Aix-en-Provence (13)",
+  "Sète (34)",
+  "Béziers (34)",
+  "Orange (84)",
+  "Arles (13)",
+  "Uzès (30)",
+  "Beaucaire (30)",
 ];
 
 export default function Footer() {
@@ -148,6 +152,18 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  href="#zone"
+                  className="text-primary-200 hover:text-white transition-colors text-sm flex items-center gap-2 font-semibold"
+                >
+                  <svg className="w-4 h-4 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  + Gard, Hérault, Bouches-du-Rhône, Vaucluse
+                </Link>
+              </li>
             </ul>
           </div>
 

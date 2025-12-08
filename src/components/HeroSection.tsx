@@ -36,15 +36,16 @@ export default function HeroSection() {
 
             {/* Title */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 animate-fade-in-up stagger-1">
-              Votre <span className="text-accent">plombier</span> de confiance
+              Urgence <span className="text-accent">plombier</span> <span className="text-accent">Nîmes Gard</span>
               <br />
-              à <span className="text-accent">Nîmes</span> et dans le <span className="text-accent">Gard</span>
+              24h/24 - Intervention rapide
             </h1>
 
             {/* Subtitle */}
             <p className="text-lg md:text-xl text-primary-100 mb-8 max-w-xl animate-fade-in-up stagger-2">
-              Cassard Sanitaire et Chauffage intervient en urgence pour tous vos besoins 
-              en plomberie, chauffage et sanitaire. <strong>Plus de 5000 clients satisfaits.</strong>
+              Urgence plombier <strong>Nîmes, Gard, Hérault, Bouches-du-Rhône, Vaucluse</strong>. 
+              Intervention rapide 24h/24 pour fuites d&apos;eau, canalisations bouchées, pannes de chauffage. 
+              <strong> Plus de 5000 clients satisfaits.</strong>
             </p>
 
             {/* Trust indicators */}

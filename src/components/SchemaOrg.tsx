@@ -6,7 +6,7 @@ export default function SchemaOrg() {
     name: "Cassard Sanitaire et Chauffage",
     alternateName: "Cassard Plombier Nîmes",
     description:
-      "Plombier professionnel à Nîmes et dans le Gard. Spécialiste en plomberie, sanitaire et chauffage. Intervention d'urgence 24h/24, 7j/7.",
+      "Urgence plombier Nîmes Gard - Intervention rapide 24h/24 dans le Gard (30), Hérault (34), Bouches-du-Rhône (13) et Vaucluse (84). Spécialiste plomberie d'urgence, sanitaire et chauffage.",
     url: "https://cassard-plombier.fr",
     telephone: "+33619242556",
     email: "contact@cassard-plombier.fr",
@@ -29,12 +29,40 @@ export default function SchemaOrg() {
     },
     areaServed: [
       {
+        "@type": "AdministrativeArea",
+        name: "Gard",
+        identifier: "FR-30",
+      },
+      {
+        "@type": "AdministrativeArea",
+        name: "Hérault",
+        identifier: "FR-34",
+      },
+      {
+        "@type": "AdministrativeArea",
+        name: "Bouches-du-Rhône",
+        identifier: "FR-13",
+      },
+      {
+        "@type": "AdministrativeArea",
+        name: "Vaucluse",
+        identifier: "FR-84",
+      },
+      {
         "@type": "City",
         name: "Nîmes",
       },
       {
-        "@type": "AdministrativeArea",
-        name: "Gard",
+        "@type": "City",
+        name: "Montpellier",
+      },
+      {
+        "@type": "City",
+        name: "Marseille",
+      },
+      {
+        "@type": "City",
+        name: "Avignon",
       },
       {
         "@type": "City",
@@ -42,15 +70,19 @@ export default function SchemaOrg() {
       },
       {
         "@type": "City",
-        name: "Uzès",
+        name: "Sète",
       },
       {
         "@type": "City",
-        name: "Beaucaire",
+        name: "Béziers",
       },
       {
         "@type": "City",
-        name: "Bagnols-sur-Cèze",
+        name: "Aix-en-Provence",
+      },
+      {
+        "@type": "City",
+        name: "Arles",
       },
     ],
     openingHoursSpecification: [
@@ -87,8 +119,9 @@ export default function SchemaOrg() {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "Dépannage plomberie urgent",
-            description: "Intervention rapide 24h/24 pour tout type de panne",
+            name: "Urgence plombier Nîmes Gard",
+            description: "Urgence plombier intervention rapide 24h/24 dans le Gard, Hérault, Bouches-du-Rhône et Vaucluse. Fuites d'eau, canalisations bouchées, pannes chauffage.",
+            areaServed: ["Gard", "Hérault", "Bouches-du-Rhône", "Vaucluse"],
           },
         },
         {

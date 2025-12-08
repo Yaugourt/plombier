@@ -1,20 +1,40 @@
-const zones = [
-  { name: "Nîmes", highlight: true },
-  { name: "Alès", highlight: false },
-  { name: "Uzès", highlight: false },
-  { name: "Beaucaire", highlight: false },
-  { name: "Bagnols-sur-Cèze", highlight: false },
-  { name: "Vauvert", highlight: false },
-  { name: "Saint-Gilles", highlight: false },
-  { name: "Vergèze", highlight: false },
-  { name: "Sommières", highlight: false },
-  { name: "Marguerittes", highlight: false },
-  { name: "Milhaud", highlight: false },
-  { name: "Bouillargues", highlight: false },
+const zonesGard = [
+  { name: "Nîmes", highlight: true, departement: "30" },
+  { name: "Alès", highlight: false, departement: "30" },
+  { name: "Uzès", highlight: false, departement: "30" },
+  { name: "Beaucaire", highlight: false, departement: "30" },
+  { name: "Bagnols-sur-Cèze", highlight: false, departement: "30" },
+  { name: "Vauvert", highlight: false, departement: "30" },
+  { name: "Saint-Gilles", highlight: false, departement: "30" },
+  { name: "Vergèze", highlight: false, departement: "30" },
+  { name: "Sommières", highlight: false, departement: "30" },
+];
+
+const zonesHerault = [
+  { name: "Montpellier", highlight: false, departement: "34" },
+  { name: "Sète", highlight: false, departement: "34" },
+  { name: "Béziers", highlight: false, departement: "34" },
+  { name: "Lunel", highlight: false, departement: "34" },
+  { name: "Agde", highlight: false, departement: "34" },
+];
+
+const zonesBDR = [
+  { name: "Marseille", highlight: false, departement: "13" },
+  { name: "Aix-en-Provence", highlight: false, departement: "13" },
+  { name: "Arles", highlight: false, departement: "13" },
+  { name: "Martigues", highlight: false, departement: "13" },
+  { name: "Salon-de-Provence", highlight: false, departement: "13" },
+];
+
+const zonesVaucluse = [
+  { name: "Avignon", highlight: false, departement: "84" },
+  { name: "Orange", highlight: false, departement: "84" },
+  { name: "Carpentras", highlight: false, departement: "84" },
+  { name: "Cavaillon", highlight: false, departement: "84" },
 ];
 
 const stats = [
-  { value: "30+", label: "Communes desservies" },
+  { value: "4", label: "Départements" },
   { value: "<30min", label: "Temps d'intervention*" },
   { value: "5014", label: "Clients satisfaits" },
   { value: "24/7", label: "Disponibilité" },
@@ -34,34 +54,104 @@ export default function ZoneSection() {
               Notre zone d&apos;intervention
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-              Plombier à <span className="gradient-text">Nîmes</span> et dans tout le <span className="gradient-text">Gard</span>
+              Urgence plombier <span className="gradient-text">Nîmes Gard</span> et régions limitrophes
             </h2>
             <p className="text-lg text-slate-600 mb-8">
-              Cassard Sanitaire et Chauffage intervient rapidement dans toute la région nîmoise 
-              et le département du Gard (30). Où que vous soyez, nous sommes là pour vous.
+              Cassard Sanitaire et Chauffage intervient en <strong>urgence 24h/24</strong> dans le Gard (30), 
+              l&apos;Hérault (34), les Bouches-du-Rhône (13) et le Vaucluse (84). 
+              Intervention rapide pour toutes vos urgences plomberie.
             </p>
 
-            {/* Zones tags */}
-            <div className="flex flex-wrap gap-2 mb-10">
-              {zones.map((zone) => (
-                <span
-                  key={zone.name}
-                  className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                    zone.highlight
-                      ? "bg-primary-600 text-white"
-                      : "bg-slate-100 text-slate-700 hover:bg-primary-100 hover:text-primary-700"
-                  }`}
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  {zone.name}
-                </span>
-              ))}
-              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium bg-slate-800 text-white">
-                + Tout le Gard (30)
-              </span>
+            {/* Gard */}
+            <div className="mb-6">
+              <h3 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+                <span className="w-2 h-2 bg-primary-600 rounded-full"></span>
+                Gard (30)
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {zonesGard.map((zone) => (
+                  <span
+                    key={zone.name}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                      zone.highlight
+                        ? "bg-primary-600 text-white"
+                        : "bg-slate-100 text-slate-700 hover:bg-primary-100 hover:text-primary-700"
+                    }`}
+                  >
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    {zone.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Hérault */}
+            <div className="mb-6">
+              <h3 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+                <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
+                Hérault (34)
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {zonesHerault.map((zone) => (
+                  <span
+                    key={zone.name}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors"
+                  >
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    {zone.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Bouches-du-Rhône */}
+            <div className="mb-6">
+              <h3 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+                <span className="w-2 h-2 bg-green-600 rounded-full"></span>
+                Bouches-du-Rhône (13)
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {zonesBDR.map((zone) => (
+                  <span
+                    key={zone.name}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium bg-green-50 text-green-700 hover:bg-green-100 transition-colors"
+                  >
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    {zone.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Vaucluse */}
+            <div className="mb-6">
+              <h3 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+                <span className="w-2 h-2 bg-purple-600 rounded-full"></span>
+                Vaucluse (84)
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {zonesVaucluse.map((zone) => (
+                  <span
+                    key={zone.name}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium bg-purple-50 text-purple-700 hover:bg-purple-100 transition-colors"
+                  >
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    {zone.name}
+                  </span>
+                ))}
+              </div>
             </div>
 
             {/* Stats */}
@@ -113,7 +203,7 @@ export default function ZoneSection() {
                 </div>
                 <div>
                   <p className="text-sm font-bold text-slate-800">Intervention garantie</p>
-                  <p className="text-xs text-slate-500">Dans tout le département du Gard</p>
+                  <p className="text-xs text-slate-500">Gard, Hérault, Bouches-du-Rhône, Vaucluse</p>
                 </div>
               </div>
             </div>
@@ -121,7 +211,8 @@ export default function ZoneSection() {
         </div>
 
         <p className="text-xs text-slate-400 mt-8 text-center">
-          * Temps d&apos;intervention moyen en zone urbaine nîmoise. Peut varier selon la localisation et la disponibilité.
+          * Temps d&apos;intervention moyen pour les urgences plomberie en zone urbaine (Nîmes, Montpellier, Marseille, Avignon). 
+          Peut varier selon la localisation exacte et la disponibilité.
         </p>
       </div>
     </section>
