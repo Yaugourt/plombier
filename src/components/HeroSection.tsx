@@ -35,21 +35,21 @@ export default function HeroSection() {
             </div>
 
             {/* Title */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 animate-fade-in-up stagger-1">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-5 animate-fade-in-up stagger-1">
               Urgence <span className="text-accent">plombier</span> <span className="text-accent">Nîmes Gard</span>
               <br />
               24h/24 - Intervention rapide
             </h1>
 
             {/* Subtitle */}
-            <p className="text-lg md:text-xl text-primary-100 mb-8 max-w-xl animate-fade-in-up stagger-2">
+            <p className="text-base md:text-lg text-primary-100 mb-6 max-w-xl animate-fade-in-up stagger-2">
               Urgence plombier <strong>Nîmes, Gard, Hérault, Bouches-du-Rhône, Vaucluse</strong>. 
               Intervention rapide 24h/24 pour fuites d&apos;eau, canalisations bouchées, pannes de chauffage. 
               <strong> Plus de 5000 clients satisfaits.</strong>
             </p>
 
             {/* Trust indicators */}
-            <div className="flex flex-wrap items-center gap-6 mb-8 animate-fade-in-up stagger-3">
+            <div className="flex flex-wrap items-center gap-4 mb-6 animate-fade-in-up stagger-3 text-sm">
               <GoogleRatingBadge />
               <div className="h-6 w-px bg-white/20"></div>
               <div className="flex items-center gap-2">
@@ -64,20 +64,20 @@ export default function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up stagger-4">
               <a
                 href="tel:0619242556"
-                className="group relative inline-flex items-center justify-center gap-3 bg-white text-primary-700 px-8 py-4 rounded-full font-bold text-lg hover:bg-primary-50 transition-all hover:scale-105 shadow-2xl shadow-black/20"
+                className="group relative inline-flex items-center justify-center gap-2 bg-white text-primary-700 px-6 py-3 rounded-full font-semibold text-base hover:bg-primary-50 transition-all hover:scale-105 shadow-xl shadow-black/15"
               >
-                <span className="relative flex h-3 w-3">
+                <span className="relative flex h-2.5 w-2.5">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-500 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-primary-600"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary-600"></span>
                 </span>
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
                 06 19 24 25 56
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm border border-white/30 text-white px-8 py-4 rounded-full font-semibold hover:bg-white/20 transition-all"
+                className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm border border-white/30 text-white px-6 py-3 rounded-full font-medium text-sm hover:bg-white/20 transition-all"
               >
                 Demander un devis
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,30 +112,30 @@ export default function HeroSection() {
               </div>
 
               {/* Floating cards */}
-              <div className="absolute -top-4 -left-4 bg-white rounded-2xl shadow-2xl p-4 animate-float">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                    <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="absolute -top-2 -left-2 bg-white rounded-xl shadow-lg p-3 animate-float">
+                <div className="flex items-center gap-2">
+                  <div className="w-9 h-9 bg-green-100 rounded-lg flex items-center justify-center">
+                    <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-slate-800">Intervention rapide</p>
-                    <p className="text-xs text-slate-500">En moins de 30 min*</p>
+                    <p className="text-xs font-semibold text-slate-800">Intervention rapide</p>
+                    <p className="text-[10px] text-slate-500">En moins de 30 min*</p>
                   </div>
                 </div>
               </div>
 
-              <div className="absolute -bottom-4 -right-4 bg-white rounded-2xl shadow-2xl p-4 animate-float" style={{ animationDelay: "0.5s" }}>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center">
-                    <svg className="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="absolute -bottom-2 -right-2 bg-white rounded-xl shadow-lg p-3 animate-float" style={{ animationDelay: "0.5s" }}>
+                <div className="flex items-center gap-2">
+                  <div className="w-9 h-9 bg-primary-100 rounded-lg flex items-center justify-center">
+                    <svg className="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-slate-800">Garantie travaux</p>
-                    <p className="text-xs text-slate-500">Satisfaction assurée</p>
+                    <p className="text-xs font-semibold text-slate-800">Garantie travaux</p>
+                    <p className="text-[10px] text-slate-500">Satisfaction assurée</p>
                   </div>
                 </div>
               </div>
@@ -144,9 +144,9 @@ export default function HeroSection() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:block">
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce hidden md:block">
           <a href="#services" className="text-white/50 hover:text-white transition-colors">
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
           </a>

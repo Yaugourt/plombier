@@ -59,17 +59,17 @@ const services = [
 
 export default function ServicesSection() {
   return (
-    <section id="services" className="py-20 md:py-28 bg-slate-50">
+    <section id="services" className="py-14 md:py-20 bg-slate-50">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block text-primary-600 font-semibold text-sm uppercase tracking-wider mb-4">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <span className="inline-block text-primary-600 font-medium text-xs uppercase tracking-wider mb-3">
             Nos expertises
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
             Des services <span className="gradient-text">complets</span> pour tous vos besoins
           </h2>
-          <p className="text-lg text-slate-600">
+          <p className="text-sm text-slate-600">
             Que ce soit pour une urgence, une installation ou une rénovation, 
             Cassard Sanitaire et Chauffage vous accompagne avec professionnalisme.
           </p>
@@ -91,7 +91,7 @@ export default function ServicesSection() {
               )}
               
               {/* Image */}
-              <div className="relative h-48 bg-gradient-to-br from-primary-100 to-primary-50 overflow-hidden">
+              <div className="relative h-36 bg-gradient-to-br from-primary-100 to-primary-50 overflow-hidden">
                 <ImageWithFallback
                   src={service.image}
                   alt={service.title}
@@ -106,18 +106,18 @@ export default function ServicesSection() {
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                <div className="w-14 h-14 bg-primary-100 rounded-xl flex items-center justify-center text-primary-600 mb-4 group-hover:bg-primary-600 group-hover:text-white transition-colors">
+              <div className="p-4">
+                <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600 mb-3 group-hover:bg-primary-600 group-hover:text-white transition-colors">
                   {service.icon}
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">{service.title}</h3>
-                <p className="text-slate-600 text-sm mb-4">{service.description}</p>
+                <h3 className="text-base font-bold text-slate-900 mb-2">{service.title}</h3>
+                <p className="text-slate-600 text-xs mb-3 line-clamp-2">{service.description}</p>
                 
                 {/* Features */}
-                <ul className="space-y-2">
+                <ul className="space-y-1">
                   {service.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2 text-sm text-slate-500">
-                      <svg className="w-4 h-4 text-primary-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <li key={feature} className="flex items-center gap-1.5 text-xs text-slate-500">
+                      <svg className="w-3 h-3 text-primary-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                       {feature}
@@ -130,12 +130,12 @@ export default function ServicesSection() {
         </div>
 
         {/* CTA */}
-        <div className="mt-12 text-center">
+        <div className="mt-8 text-center">
           <a
             href="tel:0619242556"
-            className="inline-flex items-center gap-3 bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all hover:scale-105 shadow-lg shadow-primary-600/30"
+            className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-full font-medium text-sm transition-all hover:scale-105 shadow-md shadow-primary-600/25"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
             Appelez-nous : 06 19 24 25 56
