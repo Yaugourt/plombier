@@ -13,19 +13,13 @@ const services = [
   "Rénovation",
 ];
 
-  const zones = [
-  "Nîmes (30)",
-  "Montpellier (34)",
-  "Marseille (13)",
-  "Avignon (84)",
-  "Alès (30)",
-  "Aix-en-Provence (13)",
-  "Sète (34)",
-  "Béziers (34)",
-  "Orange (84)",
-  "Arles (13)",
-  "Uzès (30)",
-  "Beaucaire (30)",
+const zones = [
+  "Nîmes",
+  "Montpellier",
+  "Alès",
+  "Avignon",
+  "Arles",
+  "Uzès",
 ];
 
 export default function Footer() {
@@ -50,28 +44,18 @@ export default function Footer() {
     <footer className="bg-primary-950 text-white">
       {/* CTA Band */}
       <div className="bg-primary-600">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="container mx-auto px-4 py-5">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-3">
             <div className="text-center md:text-left">
-              <p className="text-xl font-bold">Besoin d&apos;un plombier en urgence ?</p>
-              <p className="text-primary-100">Intervention 24h/24, 7j/7 dans tout le Gard</p>
+              <p className="text-lg font-bold">Besoin d&apos;un plombier en urgence ?</p>
+              <p className="text-primary-100 text-sm">Intervention 24h/24, 7j/7 • Gard, Hérault, Vaucluse, Bouches-du-Rhône</p>
             </div>
             <a
               href="tel:0619242556"
-              className="flex items-center gap-3 bg-white text-primary-700 px-8 py-4 rounded-full font-bold text-lg hover:bg-primary-50 transition-all hover:scale-105 shadow-xl"
+              className="flex items-center gap-2 bg-white text-primary-700 px-6 py-3 rounded-full font-bold hover:bg-primary-50 transition-all hover:scale-105 shadow-lg"
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                />
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
               06 19 24 25 56
             </a>
@@ -80,51 +64,51 @@ export default function Footer() {
       </div>
 
       {/* Main Footer */}
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            <Link href="/" className="flex items-center gap-3 mb-6">
-              <div className="relative w-12 h-12 bg-primary-600 rounded-xl flex items-center justify-center overflow-hidden">
+            <Link href="/" className="flex items-center gap-2 mb-4">
+              <div className="relative w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center overflow-hidden">
                 <ImageWithFallback
                   src="/logo.png"
                   alt="Cassard Sanitaire et Chauffage"
-                  width={48}
-                  height={48}
+                  width={40}
+                  height={40}
                   className="object-contain"
-                  fallback={<span className="text-white font-bold text-xl">C</span>}
+                  fallback={<span className="text-white font-bold text-lg">C</span>}
                 />
               </div>
               <div>
-                <span className="font-bold text-lg block">Cassard</span>
+                <span className="font-bold block">Cassard</span>
                 <span className="text-xs text-primary-300 block">Sanitaire & Chauffage</span>
               </div>
             </Link>
-            <p className="text-primary-200 mb-4 text-sm leading-relaxed">
+            <p className="text-primary-200 mb-3 text-xs leading-relaxed">
               Votre expert en plomberie, sanitaire et chauffage à Nîmes et dans tout le Gard. 
-              Plus de 5000 clients satisfaits nous font confiance.
+              Plus de 5000 clients satisfaits.
             </p>
-            <div className="flex items-center gap-2 text-yellow-400">
+            <div className="flex items-center gap-1 text-yellow-400">
               {[...Array(5)].map((_, i) => (
-                <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                <svg key={i} className="w-4 h-4 fill-current" viewBox="0 0 20 20">
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                 </svg>
               ))}
-              <span className="text-white ml-2 text-sm">{rating.toFixed(1)} ({totalRatings.toLocaleString('fr-FR')} avis)</span>
+              <span className="text-white ml-1 text-xs">{rating.toFixed(1)} ({totalRatings.toLocaleString('fr-FR')} avis)</span>
             </div>
           </div>
 
           {/* Services */}
           <div>
-            <h3 className="font-bold text-lg mb-4">Nos services</h3>
-            <ul className="space-y-2">
+            <h3 className="font-bold mb-3 text-sm">Nos services</h3>
+            <ul className="space-y-1.5">
               {services.map((service) => (
                 <li key={service}>
                   <Link
                     href="#services"
-                    className="text-primary-200 hover:text-white transition-colors text-sm flex items-center gap-2"
+                    className="text-primary-200 hover:text-white transition-colors text-xs flex items-center gap-1.5"
                   >
-                    <svg className="w-4 h-4 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3 h-3 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                     {service}
@@ -136,72 +120,64 @@ export default function Footer() {
 
           {/* Zones */}
           <div>
-            <h3 className="font-bold text-lg mb-4">Zone d&apos;intervention</h3>
-            <ul className="space-y-2">
+            <h3 className="font-bold mb-3 text-sm">Zones d&apos;intervention</h3>
+            <ul className="space-y-1.5">
               {zones.map((zone) => (
                 <li key={zone}>
                   <Link
                     href="#zone"
-                    className="text-primary-200 hover:text-white transition-colors text-sm flex items-center gap-2"
+                    className="text-primary-200 hover:text-white transition-colors text-xs flex items-center gap-1.5"
                   >
-                    <svg className="w-4 h-4 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3 h-3 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                     {zone}
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link
-                  href="#zone"
-                  className="text-primary-200 hover:text-white transition-colors text-sm flex items-center gap-2 font-semibold"
-                >
-                  <svg className="w-4 h-4 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  + Gard, Hérault, Bouches-du-Rhône, Vaucluse
-                </Link>
+              <li className="pt-1">
+                <span className="text-primary-300 text-xs">
+                  + tout le Gard, Hérault, Vaucluse, Bouches-du-Rhône
+                </span>
               </li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h3 className="font-bold text-lg mb-4">Contact</h3>
-            <ul className="space-y-4">
+            <h3 className="font-bold mb-3 text-sm">Contact</h3>
+            <ul className="space-y-3">
               <li>
                 <a
                   href="tel:0619242556"
-                  className="flex items-start gap-3 text-primary-200 hover:text-white transition-colors"
+                  className="flex items-start gap-2 text-primary-200 hover:text-white transition-colors"
                 >
-                  <svg className="w-5 h-5 text-primary-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-primary-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                   <div>
-                    <span className="block font-semibold text-white">06 19 24 25 56</span>
-                    <span className="text-sm">24h/24, 7j/7</span>
+                    <span className="block font-medium text-white text-sm">06 19 24 25 56</span>
+                    <span className="text-xs">24h/24, 7j/7</span>
                   </div>
                 </a>
               </li>
-              <li className="flex items-start gap-3 text-primary-200">
-                <svg className="w-5 h-5 text-primary-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <li className="flex items-start gap-2 text-primary-200">
+                <svg className="w-4 h-4 text-primary-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
                 <div>
-                  <span className="block font-semibold text-white">Nîmes et Gard (30)</span>
-                  <span className="text-sm">Intervention rapide</span>
+                  <span className="block font-medium text-white text-sm">Nîmes et région</span>
+                  <span className="text-xs">Intervention rapide</span>
                 </div>
               </li>
-              <li className="flex items-start gap-3 text-primary-200">
-                <svg className="w-5 h-5 text-primary-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <li className="flex items-start gap-2 text-primary-200">
+                <svg className="w-4 h-4 text-primary-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <div>
-                  <span className="block font-semibold text-white">Ouvert 24h/24</span>
-                  <span className="text-sm">Urgences & rendez-vous</span>
+                  <span className="block font-medium text-white text-sm">Ouvert 24h/24</span>
+                  <span className="text-xs">Urgences & RDV</span>
                 </div>
               </li>
             </ul>
@@ -211,10 +187,10 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="border-t border-primary-800">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-primary-300">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-primary-300">
             <p>© {new Date().getFullYear()} Cassard Sanitaire et Chauffage. Tous droits réservés.</p>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4">
               <Link href="/mentions-legales" className="hover:text-white transition-colors">
                 Mentions légales
               </Link>
@@ -228,4 +204,3 @@ export default function Footer() {
     </footer>
   );
 }
-
