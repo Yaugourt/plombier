@@ -67,8 +67,8 @@ export default function WhyUsSection() {
           <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3">
             L&apos;excellence au service de votre <span className="gradient-text">confort</span>
           </h2>
-          <p className="text-sm text-slate-600">
-            Depuis des années, Cassard Sanitaire et Chauffage s&apos;engage à fournir 
+          <p className="text-base text-slate-600">
+            Depuis des années, Cassard Sanitaire et Chauffage s&apos;engage à fournir
             des services de qualité à tous ses clients.
           </p>
         </div>
@@ -78,7 +78,7 @@ export default function WhyUsSection() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="group bg-white rounded-xl p-5 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-100 hover:border-primary-200"
+              className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-100 hover:border-primary-200"
             >
               <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600 mb-4 group-hover:bg-primary-600 group-hover:text-white transition-colors">
                 {feature.icon}
@@ -93,22 +93,22 @@ export default function WhyUsSection() {
         <div className="mt-10 flex flex-wrap items-center justify-center gap-6">
           <div className="flex items-center gap-2 text-slate-400">
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l7 3.5v7.64l-7 3.5-7-3.5V7.68l7-3.5z"/>
-              <path d="M12 8a4 4 0 100 8 4 4 0 000-8zm0 6a2 2 0 110-4 2 2 0 010 4z"/>
+              <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l7 3.5v7.64l-7 3.5-7-3.5V7.68l7-3.5z" />
+              <path d="M12 8a4 4 0 100 8 4 4 0 000-8zm0 6a2 2 0 110-4 2 2 0 010 4z" />
             </svg>
             <span className="text-xs font-medium">Assurance décennale</span>
           </div>
           <div className="h-5 w-px bg-slate-200"></div>
           <div className="flex items-center gap-2 text-slate-400">
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
             </svg>
             <span className="text-xs font-medium">Qualité garantie</span>
           </div>
           <div className="h-5 w-px bg-slate-200"></div>
           <div className="flex items-center gap-2 text-slate-400">
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+              <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" />
             </svg>
             <span className="text-xs font-medium">Prix transparents</span>
           </div>

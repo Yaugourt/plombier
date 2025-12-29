@@ -69,8 +69,8 @@ export default function ServicesSection() {
           <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
             Des services <span className="gradient-text">complets</span> pour tous vos besoins
           </h2>
-          <p className="text-sm text-slate-600">
-            Que ce soit pour une urgence, une installation ou une rénovation, 
+          <p className="text-base text-slate-600">
+            Que ce soit pour une urgence, une installation ou une rénovation,
             Cassard Sanitaire et Chauffage vous accompagne avec professionnalisme.
           </p>
         </div>
@@ -80,16 +80,15 @@ export default function ServicesSection() {
           {services.map((service) => (
             <div
               key={service.id}
-              className={`group relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 ${
-                service.highlight ? "ring-2 ring-primary-500 ring-offset-2" : ""
-              }`}
+              className={`group relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 ${service.highlight ? "ring-2 ring-primary-500 ring-offset-2" : ""
+                }`}
             >
               {service.highlight && (
                 <div className="absolute top-4 right-4 z-10 bg-primary-600 text-white text-xs font-bold px-3 py-1 rounded-full">
                   24h/24
                 </div>
               )}
-              
+
               {/* Image */}
               <div className="relative h-36 bg-gradient-to-br from-primary-100 to-primary-50 overflow-hidden">
                 <ImageWithFallback
@@ -106,17 +105,17 @@ export default function ServicesSection() {
               </div>
 
               {/* Content */}
-              <div className="p-4">
+              <div className="p-5">
                 <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600 mb-3 group-hover:bg-primary-600 group-hover:text-white transition-colors">
                   {service.icon}
                 </div>
                 <h3 className="text-base font-bold text-slate-900 mb-2">{service.title}</h3>
-                <p className="text-slate-600 text-xs mb-3 line-clamp-2">{service.description}</p>
-                
+                <p className="text-slate-600 text-sm mb-3 line-clamp-2">{service.description}</p>
+
                 {/* Features */}
                 <ul className="space-y-1">
                   {service.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-1.5 text-xs text-slate-500">
+                    <li key={feature} className="flex items-center gap-1.5 text-sm text-slate-500">
                       <svg className="w-3 h-3 text-primary-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>

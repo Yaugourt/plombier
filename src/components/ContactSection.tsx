@@ -16,7 +16,7 @@ export default function ContactSection() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulation d'envoi - À remplacer par votre logique d'envoi
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -41,8 +41,8 @@ export default function ContactSection() {
             <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
               Besoin d&apos;un <span className="gradient-text">plombier</span> ?
             </h2>
-            <p className="text-sm text-slate-600 mb-6">
-              Appelez-nous directement ou remplissez le formulaire. 
+            <p className="text-base text-slate-600 mb-6">
+              Appelez-nous directement ou remplissez le formulaire.
               Nous vous répondons dans les plus brefs délais.
             </p>
 
@@ -59,7 +59,7 @@ export default function ContactSection() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-xs text-primary-600 font-medium">Appelez-nous</p>
+                  <p className="text-sm text-primary-600 font-medium">Appelez-nous</p>
                   <p className="text-lg font-bold text-slate-900">06 19 24 25 56</p>
                   <p className="text-xs text-slate-500">Disponible 24h/24, 7j/7</p>
                 </div>
@@ -74,7 +74,7 @@ export default function ContactSection() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-xs text-slate-500 font-medium">Zone d&apos;intervention</p>
+                  <p className="text-sm text-slate-500 font-medium">Zone d&apos;intervention</p>
                   <p className="text-base font-bold text-slate-900">Gard, Hérault, Bouches-du-Rhône, Vaucluse</p>
                   <p className="text-xs text-slate-500">Intervention rapide garantie</p>
                 </div>
@@ -88,7 +88,7 @@ export default function ContactSection() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-xs text-slate-500 font-medium">Horaires</p>
+                  <p className="text-sm text-slate-500 font-medium">Horaires</p>
                   <p className="text-base font-bold text-slate-900">Ouvert 24h/24</p>
                   <p className="text-xs text-green-600 font-medium">Actuellement disponible</p>
                 </div>
@@ -229,7 +229,7 @@ export default function ContactSection() {
                   )}
                 </button>
 
-                <p className="text-[10px] text-slate-400 text-center">
+                <p className="text-xs text-slate-400 text-center">
                   En soumettant ce formulaire, vous acceptez d&apos;être recontacté par nos services.
                 </p>
               </form>

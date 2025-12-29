@@ -13,7 +13,7 @@ export default function HeroSection() {
           <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="1"/>
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="1" />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#grid)" />
@@ -31,7 +31,7 @@ export default function HeroSection() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
               </span>
-              <span className="text-sm font-medium">Disponible 24h/24 - 7j/7</span>
+              <span className="text-base font-medium">Disponible 24h/24 - 7j/7</span>
             </div>
 
             {/* Title */}
@@ -42,9 +42,9 @@ export default function HeroSection() {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-base md:text-lg text-primary-100 mb-6 max-w-xl animate-fade-in-up stagger-2">
-              Urgence plombier <strong>Nîmes, Gard, Hérault, Bouches-du-Rhône, Vaucluse</strong>. 
-              Intervention rapide 24h/24 pour fuites d&apos;eau, canalisations bouchées, pannes de chauffage. 
+            <p className="text-lg md:text-xl text-primary-100 mb-6 max-w-xl animate-fade-in-up stagger-2">
+              Urgence plombier <strong>Nîmes, Gard, Hérault, Bouches-du-Rhône, Vaucluse</strong>.
+              Intervention rapide 24h/24 pour fuites d&apos;eau, canalisations bouchées, pannes de chauffage.
               <strong> Plus de 5000 clients satisfaits.</strong>
             </p>
 
@@ -121,7 +121,7 @@ export default function HeroSection() {
                   </div>
                   <div>
                     <p className="text-xs font-semibold text-slate-800">Intervention rapide</p>
-                    <p className="text-[10px] text-slate-500">En moins de 30 min*</p>
+                    <p className="text-xs text-slate-500">En moins de 30 min*</p>
                   </div>
                 </div>
               </div>
@@ -135,7 +135,7 @@ export default function HeroSection() {
                   </div>
                   <div>
                     <p className="text-xs font-semibold text-slate-800">Garantie travaux</p>
-                    <p className="text-[10px] text-slate-500">Satisfaction assurée</p>
+                    <p className="text-xs text-slate-500">Satisfaction assurée</p>
                   </div>
                 </div>
               </div>

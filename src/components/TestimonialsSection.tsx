@@ -132,8 +132,8 @@ export default function TestimonialsSection() {
           <h2 className="text-2xl md:text-3xl font-bold mb-4">
             Plus de <span className="text-accent">5000 clients</span> satisfaits
           </h2>
-          <p className="text-sm text-primary-200">
-            Découvrez les avis de nos clients. Notre réputation se construit chaque jour 
+          <p className="text-base text-primary-200">
+            Découvrez les avis de nos clients. Notre réputation se construit chaque jour
             grâce à votre confiance et notre engagement qualité.
           </p>
         </div>
@@ -165,9 +165,8 @@ export default function TestimonialsSection() {
           {visibleTestimonials.map((testimonial, index) => (
             <div
               key={testimonial.id}
-              className={`bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 transition-all cursor-pointer ${
-                index === activeIndex ? "ring-1 ring-accent" : ""
-              }`}
+              className={`bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-5 hover:bg-white/10 transition-all cursor-pointer ${index === activeIndex ? "ring-1 ring-accent" : ""
+                }`}
               onClick={() => setActiveIndex(index)}
             >
               {/* Header */}

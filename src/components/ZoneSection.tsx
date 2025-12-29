@@ -45,7 +45,7 @@ export default function ZoneSection() {
     <section id="zone" className="py-14 md:py-20 bg-white relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary-50 to-transparent"></div>
-      
+
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 items-center">
           {/* Content */}
@@ -56,9 +56,9 @@ export default function ZoneSection() {
             <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
               Urgence plombier <span className="gradient-text">Nîmes Gard</span> et régions limitrophes
             </h2>
-            <p className="text-sm text-slate-600 mb-6">
-              Cassard Sanitaire et Chauffage intervient en <strong>urgence 24h/24</strong> dans le Gard (30), 
-              l&apos;Hérault (34), les Bouches-du-Rhône (13) et le Vaucluse (84). 
+            <p className="text-base text-slate-600 mb-6">
+              Cassard Sanitaire et Chauffage intervient en <strong>urgence 24h/24</strong> dans le Gard (30),
+              l&apos;Hérault (34), les Bouches-du-Rhône (13) et le Vaucluse (84).
               Intervention rapide pour toutes vos urgences plomberie.
             </p>
 
@@ -72,11 +72,10 @@ export default function ZoneSection() {
                 {zonesGard.map((zone) => (
                   <span
                     key={zone.name}
-                    className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium transition-colors ${
-                      zone.highlight
+                    className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium transition-colors ${zone.highlight
                         ? "bg-primary-600 text-white"
                         : "bg-slate-100 text-slate-700 hover:bg-primary-100 hover:text-primary-700"
-                    }`}
+                      }`}
                   >
                     <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -181,7 +180,7 @@ export default function ZoneSection() {
                   <span className="text-xs text-primary-400">(Gard - 30)</span>
                 </span>
               </div>
-              
+
               {/* Decorative pins */}
               <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <div className="relative">
@@ -203,15 +202,15 @@ export default function ZoneSection() {
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-slate-800">Intervention garantie</p>
-                  <p className="text-[10px] text-slate-500">4 départements couverts</p>
+                  <p className="text-xs text-slate-500">4 départements couverts</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <p className="text-[10px] text-slate-400 mt-6 text-center">
-          * Temps d&apos;intervention moyen pour les urgences plomberie en zone urbaine. 
+        <p className="text-xs text-slate-400 mt-6 text-center">
+          * Temps d&apos;intervention moyen pour les urgences plomberie en zone urbaine.
           Peut varier selon la localisation.
         </p>
       </div>

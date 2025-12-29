@@ -84,8 +84,8 @@ export default function Footer() {
                 <span className="text-xs text-primary-300 block">Sanitaire & Chauffage</span>
               </div>
             </Link>
-            <p className="text-primary-200 mb-3 text-xs leading-relaxed">
-              Votre expert en plomberie, sanitaire et chauffage à Nîmes et dans tout le Gard. 
+            <p className="text-primary-200 mb-3 text-sm leading-relaxed">
+              Votre expert en plomberie, sanitaire et chauffage à Nîmes et dans tout le Gard.
               Plus de 5000 clients satisfaits.
             </p>
             <div className="flex items-center gap-1 text-yellow-400">
@@ -106,7 +106,7 @@ export default function Footer() {
                 <li key={service}>
                   <Link
                     href="#services"
-                    className="text-primary-200 hover:text-white transition-colors text-xs flex items-center gap-1.5"
+                    className="text-primary-200 hover:text-white transition-colors text-sm flex items-center gap-1.5"
                   >
                     <svg className="w-3 h-3 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -126,7 +126,7 @@ export default function Footer() {
                 <li key={zone}>
                   <Link
                     href="#zone"
-                    className="text-primary-200 hover:text-white transition-colors text-xs flex items-center gap-1.5"
+                    className="text-primary-200 hover:text-white transition-colors text-sm flex items-center gap-1.5"
                   >
                     <svg className="w-3 h-3 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />

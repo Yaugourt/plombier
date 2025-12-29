@@ -18,8 +18,8 @@ export default function UrgenceSection() {
               Urgence plombier <span className="text-red-600">Nîmes Gard</span>
             </h2>
             <p className="text-base text-slate-700 mb-6 max-w-2xl mx-auto">
-              Fuite d&apos;eau, canalisation bouchée, panne de chauffage ? 
-              <strong> Intervention rapide 24h/24, 7j/7</strong> dans le Gard, l&apos;Hérault, 
+              Fuite d&apos;eau, canalisation bouchée, panne de chauffage ?
+              <strong> Intervention rapide 24h/24, 7j/7</strong> dans le Gard, l&apos;Hérault,
               les Bouches-du-Rhône et le Vaucluse.
             </p>
           </div>
@@ -32,10 +32,10 @@ export default function UrgenceSection() {
                   Besoin d&apos;un plombier en urgence ?
                 </h3>
                 <p className="text-sm text-slate-600 mb-3">
-                  Appelez-nous maintenant pour une intervention rapide dans tout le Gard, 
+                  Appelez-nous maintenant pour une intervention rapide dans tout le Gard,
                   l&apos;Hérault, les Bouches-du-Rhône et le Vaucluse.
                 </p>
-                <div className="flex flex-wrap gap-3 text-xs text-slate-500">
+                <div className="flex flex-wrap gap-3 text-sm text-slate-500">
                   <span className="flex items-center gap-1.5">
                     <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -87,7 +87,7 @@ export default function UrgenceSection() {
               </div>
               <h3 className="text-base font-bold text-slate-900 mb-1.5">Fuite d&apos;eau</h3>
               <p className="text-sm text-slate-600">
-                Fuite d&apos;eau urgente à Nîmes, Montpellier, Marseille ou Avignon ? 
+                Fuite d&apos;eau urgente à Nîmes, Montpellier, Marseille ou Avignon ?
                 Intervention immédiate.
               </p>
             </div>
@@ -143,7 +143,7 @@ export default function UrgenceSection() {
             </div>
           </div>
 
-          <p className="text-[10px] text-slate-400 mt-5 text-center">
+          <p className="text-xs text-slate-400 mt-5 text-center">
             * Temps d&apos;intervention moyen en zone urbaine. Peut varier selon la localisation.
           </p>
         </div>
