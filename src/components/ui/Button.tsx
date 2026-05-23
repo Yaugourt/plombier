@@ -29,10 +29,10 @@ type LinkProps = CommonProps &
 type Props = ButtonProps | LinkProps;
 
 const sizes: Record<Size, string> = {
-  sm: "h-10 px-4 text-sm gap-1.5",
-  md: "h-12 px-6 text-base gap-2",
-  lg: "h-14 px-8 text-base gap-2.5",
-  xl: "h-16 px-10 text-lg gap-3",
+  sm: "h-9 px-3.5 text-sm gap-1.5",
+  md: "h-11 px-5 text-sm gap-2",
+  lg: "h-11 px-6 text-sm gap-2",
+  xl: "h-12 px-7 text-base gap-2.5",
 };
 
 const variants: Record<Variant, string> = {
@@ -47,7 +47,7 @@ const variants: Record<Variant, string> = {
   urgence:
     "bg-accent-warm text-white hover:bg-accent-warm-dark active:bg-accent-warm-darker shadow-lg shadow-accent-warm/30 hover:shadow-xl hover:shadow-accent-warm/40",
   outline:
-    "bg-white/10 backdrop-blur-md border border-white/30 text-white hover:bg-white/20 active:bg-white/30",
+    "bg-white/15 backdrop-blur-md border border-white/40 text-white hover:bg-white/25 hover:border-white/60 active:bg-white/30",
 };
 
 const base =

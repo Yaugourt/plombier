@@ -12,9 +12,9 @@ type Props = {
 };
 
 const spacings = {
-  tight: "py-10 md:py-12 lg:py-14",
-  default: "py-14 md:py-16 lg:py-20",
-  loose: "py-16 md:py-20 lg:py-28",
+  tight: "py-8 md:py-10 lg:py-12",
+  default: "py-10 md:py-12 lg:py-16",
+  loose: "py-12 md:py-16 lg:py-20",
 };
 
 export default function Section({

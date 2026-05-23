@@ -48,9 +48,8 @@ export default function ZoneSection() {
         description="Gard, Hérault, Bouches-du-Rhône, Vaucluse — basés à Nîmes, on rayonne jusqu'à Montpellier, Avignon, Arles et au-delà."
       />
 
-      <div className="grid lg:grid-cols-2 gap-12 items-start">
-        {/* Carte */}
-        <div className="relative rounded-3xl overflow-hidden shadow-soft-lg aspect-[4/3] lg:aspect-auto lg:min-h-[500px]">
+      <div className="grid lg:grid-cols-2 gap-8 items-start">
+        <div className="relative rounded-2xl overflow-hidden shadow-soft-lg aspect-[16/10] lg:aspect-auto lg:min-h-[360px]">
           <iframe
             src={MAP_EMBED_URL}
             width="100%"

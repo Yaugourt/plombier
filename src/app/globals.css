@@ -60,22 +60,23 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color-scheme: light;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans, system-ui, sans-serif);
-  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  font-size: 1rem;
   line-height: 1.6;
   text-wrap: pretty;
 }
 
-/* Fluid display typography */
+/* Display typography — compact pro */
 h1, .h1 {
   font-family: var(--font-display, var(--font-sans));
-  font-size: clamp(2.25rem, 1rem + 4vw, 3.75rem);
-  line-height: 1.05;
+  font-size: clamp(1.75rem, 1rem + 2vw, 2.5rem);
+  line-height: 1.08;
   letter-spacing: -0.02em;
   font-weight: 800;
   text-wrap: balance;
@@ -83,8 +84,8 @@ h1, .h1 {
 
 h2, .h2 {
   font-family: var(--font-display, var(--font-sans));
-  font-size: clamp(1.75rem, 0.8rem + 3vw, 2.75rem);
-  line-height: 1.1;
+  font-size: clamp(1.35rem, 0.9rem + 1.5vw, 1.875rem);
+  line-height: 1.15;
   letter-spacing: -0.015em;
   font-weight: 700;
   text-wrap: balance;
@@ -92,8 +93,8 @@ h2, .h2 {
 
 h3, .h3 {
   font-family: var(--font-display, var(--font-sans));
-  font-size: clamp(1.25rem, 0.9rem + 1.5vw, 1.5rem);
-  line-height: 1.25;
+  font-size: clamp(1.0625rem, 0.95rem + 0.5vw, 1.25rem);
+  line-height: 1.3;
   letter-spacing: -0.01em;
   font-weight: 700;
 }
@@ -137,7 +138,25 @@ h3, .h3 {
   100% { transform: translateX(-50%); }
 }
 
+/* Visible by default — hidden only once JS marks html.reveal-js */
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+
 @media (prefers-reduced-motion: no-preference) {
+  html.reveal-js .reveal:not(.in) {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  html.reveal-js .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   .animate-fade-in-up {
     animation: fade-in-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     opacity: 0;
@@ -157,15 +176,6 @@ h3, .h3 {
   }
   .animate-scroll-x {
     animation: scroll-x 40s linear infinite;
-  }
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .reveal.in {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -208,9 +218,8 @@ h3, .h3 {
 
 .bg-gradient-hero {
   background:
-    radial-gradient(ellipse at 80% -10%, rgba(14, 165, 233, 0.25), transparent 50%),
-    radial-gradient(ellipse at 0% 100%, rgba(59, 130, 246, 0.3), transparent 50%),
-    linear-gradient(135deg, var(--primary-950) 0%, var(--primary-800) 60%, var(--primary-700) 100%);
+    radial-gradient(ellipse at 80% -10%, rgba(14, 165, 233, 0.2), transparent 50%),
+    linear-gradient(135deg, var(--primary-950) 0%, var(--primary-800) 100%);
 }
 
 .bg-grain {

@@ -1,9 +1,5 @@
 import Section from "@/components/ui/Section";
-import SectionHeader from "@/components/ui/SectionHeader";
-import Card from "@/components/ui/Card";
-import Button from "@/components/ui/Button";
 import Icon from "@/components/ui/Icon";
-import { CONTACT, SOCIAL_PROOF } from "@/lib/constants";
 
 type Reflex = {
   icon: "drop" | "alert" | "phone";
@@ -15,96 +11,75 @@ const reflexes: Reflex[] = [
   {
     icon: "drop",
     title: "Coupez l'arrivée d'eau",
-    description: "Localisez la vanne principale ou le compteur pour stopper la fuite.",
+    description: "Vanne principale ou compteur.",
   },
   {
     icon: "alert",
     title: "Coupez l'électricité",
-    description: "Si l'eau s'approche de prises ou du compteur, coupez le disjoncteur.",
+    description: "Si l'eau touche prises ou compteur.",
   },
   {
     icon: "phone",
     title: "Appelez-nous",
-    description: "On arrive en moins de 30 min pour stopper le sinistre.",
+    description: "On arrive en moins de 30 min.",
   },
-];
-
-const reassurance = [
-  "Devis gratuit",
-  "Tarif annoncé",
-  "Paiement après intervention",
-  "Garantie décennale",
 ];
 
 export default function UrgenceSection() {
   return (
     <Section
-      spacing="default"
-      className="bg-primary-950 text-white relative overflow-hidden"
+      id="urgence"
+      spacing="tight"
+      className="relative z-20 bg-primary-950 text-white overflow-hidden border-t border-white/10"
     >
       <div className="absolute inset-0 bg-grain opacity-[0.04] pointer-events-none" />
 
-      <SectionHeader
-        invert
-        eyebrow="Urgence 24/7"
-        title={
-          <>
-            Une urgence ? <span className="text-accent">3 réflexes</span> avant qu&apos;on arrive
-          </>
-        }
-        description="Quelques gestes simples, à faire maintenant, pour limiter les dégâts en attendant notre intervention."
-      />
-
-      <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-        {reflexes.map((r, i) => (
-          <Card
-            key={r.title}
-            variant="glass"
-            hover
-            className={`reveal stagger-${i + 1}`}
-          >
-            <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/15 flex items-center justify-center text-accent mb-5">
-              <Icon name={r.icon} size={26} />
-            </div>
-            <h3 className="text-white mb-2">{r.title}</h3>
-            <p className="text-primary-100 text-pretty leading-relaxed">
-              {r.description}
+      <div className="rounded-2xl bg-white/[0.06] border border-white/10 p-4 md:p-5">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-stretch lg:gap-5">
+          <div className="shrink-0 lg:w-44 xl:w-48 lg:flex lg:flex-col lg:justify-center">
+            <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-primary-200">
+              Urgence 24/7
             </p>
-          </Card>
-        ))}
-      </div>
+            <h2 className="text-white text-base sm:text-lg font-bold leading-snug mt-1 text-balance">
+              3 réflexes avant qu&apos;on arrive
+            </h2>
+            <p className="mt-1.5 text-xs text-primary-200/90 leading-snug hidden sm:block">
+              Gestes simples pour limiter les dégâts en attendant l&apos;équipe.
+            </p>
+          </div>
 
-      <div className="mt-12 md:mt-16 flex flex-col items-center text-center gap-4">
-        <Button
-          variant="urgence"
-          size="xl"
-          as="a"
-          href={CONTACT.phoneTel}
-          iconLeft={<Icon name="phone" size={22} />}
-        >
-          Appeler maintenant — {CONTACT.phone}
-        </Button>
-        <div className="inline-flex items-center gap-2 text-sm text-primary-100">
-          <Icon name="clock" size={16} />
-          <span>
-            Intervention en moins de {SOCIAL_PROOF.interventionTimeMinutes} minutes*
-          </span>
+          <ol className="flex-1 grid sm:grid-cols-3 gap-2 sm:gap-2.5 min-w-0 list-none">
+            {reflexes.map((r, i) => (
+              <li
+                key={r.title}
+                className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] border border-white/10 p-3 sm:p-3.5"
+              >
+                <div className="w-9 h-9 rounded-lg bg-white/10 border border-white/10 flex items-center justify-center text-accent shrink-0">
+                  <Icon name={r.icon} size={17} />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs sm:text-sm font-bold text-white leading-snug">
+                    {r.title}
+                  </p>
+                  <p className="text-[11px] sm:text-xs text-primary-200 leading-snug mt-0.5">
+                    {r.description}
+                  </p>
+                </div>
+                <span
+                  aria-hidden="true"
+                  className="text-base sm:text-lg font-display font-bold text-white/20 shrink-0 tabular-nums"
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+              </li>
+            ))}
+          </ol>
         </div>
-        <p className="text-xs text-primary-300">
-          *sur l&apos;aire urbaine de Nîmes
-        </p>
       </div>
 
-      <div className="mt-12 md:mt-16 pt-8 border-t border-white/10">
-        <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-primary-200">
-          {reassurance.map((label) => (
-            <li key={label} className="inline-flex items-center gap-2">
-              <Icon name="check" size={16} className="text-accent" />
-              <span>{label}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <p className="mt-3 text-center text-[11px] sm:text-xs text-primary-300">
+        Devis gratuit · Tarif annoncé · Garantie décennale
+      </p>
     </Section>
   );
 }

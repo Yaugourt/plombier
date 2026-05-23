@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Options compactes — Sections accueil</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --p950: #172554; --p700: #1d4ed8; --p600: #2563eb; --p100: #dbeafe; --p50: #eff6ff;
+      --accent: #0ea5e9; --warm: #f97316;
+      --slate-900: #0f172a; --slate-600: #475569; --slate-50: #f8fafc;
+      --container: 72rem;
+    }
+    body { font-family: Outfit, system-ui, sans-serif; background: #f1f5f9; color: var(--slate-900); line-height: 1.55; }
+    .display { font-family: "Plus Jakarta Sans", Outfit, sans-serif; }
+
+    .top {
+      position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid #e2e8f0;
+      padding: 0.85rem 1.25rem; box-shadow: 0 2px 16px rgb(15 23 42 / 0.06);
+    }
+    .top-inner { max-width: var(--container); margin: 0 auto; display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; align-items: center; justify-content: space-between; }
+    .top h1 { font-size: 1rem; font-weight: 700; }
+    .top p { font-size: 0.8125rem; color: var(--slate-600); max-width: 36rem; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .tabs button {
+      border: 1px solid #e2e8f0; background: #fff; padding: 0.35rem 0.75rem; border-radius: 999px;
+      font: inherit; font-size: 0.75rem; font-weight: 600; cursor: pointer; color: var(--slate-600);
+    }
+    .tabs button.on { background: var(--p700); border-color: var(--p700); color: #fff; }
+
+    main { max-width: var(--container); margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+    .panel { display: none; }
+    .panel.on { display: block; }
+
+    .variant-block { margin-bottom: 2.5rem; }
+    .variant-label { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; margin-bottom: 0.75rem; }
+    .variant-label h2 { font-size: 0.9375rem; font-weight: 700; }
+    .tag { font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.2rem 0.55rem; border-radius: 999px; }
+    .tag-a { background: #dcfce7; color: #166534; }
+    .tag-b { background: #dbeafe; color: #1e40af; }
+    .tag-c { background: #ffedd5; color: #c2410c; }
+    .hint { font-size: 0.8125rem; color: var(--slate-600); margin-bottom: 0.75rem; }
+    .meta { font-size: 0.75rem; color: var(--slate-600); margin-top: 0.5rem; }
+    .meta strong { color: var(--slate-900); }
+
+    .frame {
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 1rem; overflow: hidden;
+      box-shadow: 0 12px 40px rgb(30 64 175 / 0.08);
+    }
+
+    .sec { padding: 1.5rem 1.25rem; background: var(--slate-50); }
+    .sec-head { text-align: center; margin-bottom: 1rem; }
+    .sec-head .ey { font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--p700); background: var(--p50); border: 1px solid var(--p100); display: inline-block; padding: 0.2rem 0.55rem; border-radius: 999px; margin-bottom: 0.45rem; }
+    .sec-head h3 { font-size: 1.25rem; font-weight: 700; }
+    .sec-head p { font-size: 0.8125rem; color: var(--slate-600); margin-top: 0.3rem; }
+
+    .svc-list { display: flex; flex-direction: column; gap: 0.55rem; }
+    .svc-row {
+      display: grid; grid-template-columns: auto 1fr auto; gap: 0.75rem; align-items: center;
+      background: #fff; border-radius: 0.75rem; padding: 0.85rem 1rem; border: 1px solid #f1f5f9;
+    }
+    .svc-row.compact { padding: 0.55rem 0.85rem; grid-template-columns: auto 1fr auto; }
+    .svc-row .ico { width: 2.5rem; height: 2.5rem; border-radius: 0.65rem; background: var(--p50); color: var(--p700); display: grid; place-items: center; font-weight: 800; font-size: 0.75rem; flex-shrink: 0; }
+    .svc-row.compact .ico { width: 2rem; height: 2rem; font-size: 0.6875rem; }
+    .svc-row h4 { font-size: 0.875rem; font-weight: 700; }
+    .svc-row p { font-size: 0.75rem; color: var(--slate-600); margin-top: 0.1rem; }
+    .svc-row a { font-size: 0.75rem; font-weight: 700; color: var(--p700); text-decoration: none; white-space: nowrap; }
+    .more-link { text-align: center; margin-top: 0.85rem; font-size: 0.8125rem; color: var(--slate-600); }
+    .more-link a { color: var(--p700); font-weight: 700; text-decoration: none; }
+
+    .why-grid { display: grid; gap: 0.75rem; }
+    @media (min-width: 640px) { .why-grid { grid-template-columns: 1fr 1fr; } }
+    .why-card {
+      background: #fff; border-radius: 0.75rem; padding: 1rem; border: 1px solid #f1f5f9;
+      box-shadow: 0 6px 20px rgb(30 64 175 / 0.05);
+    }
+    .why-card .ico { width: 2.25rem; height: 2.25rem; border-radius: 0.55rem; background: var(--p50); color: var(--p700); display: grid; place-items: center; font-size: 0.875rem; margin-bottom: 0.5rem; }
+    .why-card h4 { font-size: 0.875rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .why-card p { font-size: 0.75rem; color: var(--slate-600); }
+
+    .why-strip {
+      display: grid; gap: 0.5rem;
+    }
+    @media (min-width: 768px) { .why-strip { grid-template-columns: repeat(4, 1fr); } }
+    .why-pill {
+      background: #fff; border: 1px solid #f1f5f9; border-radius: 0.75rem; padding: 0.75rem 0.85rem;
+      display: flex; align-items: flex-start; gap: 0.55rem;
+    }
+    .why-pill .ico { width: 1.75rem; height: 1.75rem; border-radius: 0.45rem; background: var(--p50); color: var(--p700); display: grid; place-items: center; font-size: 0.6875rem; flex-shrink: 0; }
+    .why-pill strong { display: block; font-size: 0.75rem; font-weight: 700; line-height: 1.25; }
+    .why-pill span { font-size: 0.6875rem; color: var(--slate-600); line-height: 1.35; }
+
+    .badges {
+      margin-top: 0.85rem; padding-top: 0.75rem; border-top: 1px solid #e2e8f0;
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1rem;
+      font-size: 0.6875rem; color: var(--slate-600);
+    }
+    .badges span::before { content: "✓ "; color: var(--p600); font-weight: 700; }
+
+    /* Galerie */
+    .sec-white { padding: 1.5rem 1.25rem; background: #fff; }
+    .gal-grid-a {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem;
+    }
+    @media (min-width: 768px) { .gal-grid-a { grid-template-columns: repeat(4, 1fr); gap: 0.65rem; } }
+    .gal-grid-a .ph {
+      aspect-ratio: 1; border-radius: 0.75rem; overflow: hidden; background: #cbd5e1;
+      background-size: cover; background-position: center;
+    }
+    .gal-grid-a .ph.hero { grid-column: span 2; grid-row: span 2; }
+    @media (max-width: 767px) { .gal-grid-a .ph.hero { grid-column: span 2; grid-row: span 1; aspect-ratio: 16/10; } }
+
+    .gal-grid-b {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;
+    }
+    @media (max-width: 640px) { .gal-grid-b { grid-template-columns: repeat(2, 1fr); } }
+    .gal-grid-b .ph {
+      aspect-ratio: 1; border-radius: 0.65rem; overflow: hidden; background: #cbd5e1;
+      background-size: cover; background-position: center;
+    }
+
+    .gal-strip-wrap {
+      overflow: hidden;
+      mask-image: linear-gradient(90deg, transparent, black 4%, black 96%, transparent);
+    }
+    .gal-strip {
+      display: flex; gap: 0.5rem; width: max-content;
+      animation: gal-scroll 28s linear infinite;
+    }
+    @keyframes gal-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .gal-strip .ph {
+      width: 9rem; height: 6.5rem; flex-shrink: 0; border-radius: 0.65rem;
+      background: #cbd5e1; background-size: cover; background-position: center;
+    }
+    @media (min-width: 640px) { .gal-strip .ph { width: 11rem; height: 7.5rem; } }
+
+    .gal-btn {
+      margin-top: 0.85rem; display: flex; justify-content: center;
+    }
+    .gal-btn span {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      height: 2.5rem; padding: 0 1rem; border-radius: 999px;
+      background: var(--p50); color: var(--p700); font-size: 0.8125rem; font-weight: 600;
+      border: 1px solid var(--p100);
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top-inner">
+      <div>
+        <h1 class="display">Options sections accueil</h1>
+        <p>Services, Pourquoi Cassard, Réalisations — dis-moi <strong>A</strong>, <strong>B</strong> ou <strong>C</strong> par section et j’implémente.</p>
+      </div>
+      <nav class="tabs" id="tabs">
+        <button type="button" class="on" data-panel="services">Services</button>
+        <button type="button" data-panel="why">Pourquoi Cassard</button>
+        <button type="button" data-panel="gallery">Réalisations</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="panel on" id="panel-services">
+      <div class="variant-block">
+        <div class="variant-label">
+          <span class="tag tag-a">A · Actuel</span>
+          <h2 class="display">Liste complète — 6 lignes + descriptions</h2>
+        </div>
+        <p class="hint">Ce que tu as en ligne. Clair pour le SEO, mais la section est longue.</p>
+        <div class="frame"><div class="sec">
+          <div class="sec-head"><span class="ey">Nos services</span><h3 class="display">Interventions les plus demandées</h3></div>
+          <div class="svc-list">
+            <div class="svc-row"><div class="ico">💧</div><div><h4>Urgence fuite d'eau Gard</h4><p>Intervention en moins de 30 minutes — détection sans casse</p></div><a href="#">Voir →</a></div>
+            <div class="svc-row"><div class="ico">🔧</div><div><h4>Débouchage canalisation Nîmes</h4><p>WC, évier, colonne — furet, hydrocurage, caméra 24h/24</p></div><a href="#">Voir →</a></div>
+            <div class="svc-row"><div class="ico">🔥</div><div><h4>Réparation chauffage & chaudière</h4><p>Toutes marques — dépannage le jour même</p></div><a href="#">Voir →</a></div>
+            <div class="svc-row"><div class="ico">🛁</div><div><h4>Rénovation salle de bain</h4><p>Douche italienne, plomberie, mise en service</p></div><a href="#">Devis →</a></div>
+            <div class="svc-row"><div class="ico">🚿</div><div><h4>Sanitaire et robinetterie</h4><p>WC suspendu, mitigeurs, vasques</p></div><a href="#">Devis →</a></div>
+            <div class="svc-row"><div class="ico">⏱</div><div><h4>Dépannage chauffe-eau</h4><p>Cumulus, ballon gaz, thermodynamique</p></div><a href="#">Devis →</a></div>
+          </div>
+        </div></div>
+        <p class="meta"><strong>Hauteur ~</strong> 520px desktop · 6 cartes · SEO max</p>
+      </div>
+
+      <div class="variant-block">
+        <div class="variant-label">
+          <span class="tag tag-b">B · Recommandé</span>
+          <h2 class="display">Top 3 SEO + 3 autres en une ligne</h2>
+        </div>
+        <p class="hint">Garde les 3 landing pages (fuite, débouchage, chauffage) en détail. Les 3 autres passent en lignes courtes sans description.</p>
+        <div class="frame"><div class="sec">
+          <div class="sec-head"><span class="ey">Nos services</span><h3 class="display">Interventions les plus demandées</h3></div>
+          <div class="svc-list">
+            <div class="svc-row"><div class="ico">💧</div><div><h4>Urgence fuite d'eau Gard</h4><p>Intervention en moins de 30 minutes — détection sans casse</p></div><a href="#">Voir →</a></div>
+            <div class="svc-row"><div class="ico">🔧</div><div><h4>Débouchage canalisation Nîmes</h4><p>WC, évier, colonne — furet, hydrocurage, caméra 24h/24</p></div><a href="#">Voir →</a></div>
+            <div class="svc-row"><div class="ico">🔥</div><div><h4>Réparation chauffage & chaudière</h4><p>Toutes marques — dépannage le jour même</p></div><a href="#">Voir →</a></div>
+            <div class="svc-row compact"><div class="ico">🛁</div><div><h4>Rénovation salle de bain</h4></div><a href="#">Devis →</a></div>
+            <div class="svc-row compact"><div class="ico">🚿</div><div><h4>Sanitaire et robinetterie</h4></div><a href="#">Devis →</a></div>
+            <div class="svc-row compact"><div class="ico">⏱</div><div><h4>Dépannage chauffe-eau</h4></div><a href="#">Devis →</a></div>
+          </div>
+        </div></div>
+        <p class="meta"><strong>Hauteur ~</strong> 380px · −27 % · bon compromis SEO / scroll</p>
+      </div>
+
+      <div class="variant-block">
+        <div class="variant-label">
+          <span class="tag tag-c">C · Ultra court</span>
+          <h2 class="display">Grille 2×3 — titres seuls</h2>
+        </div>
+        <p class="hint">6 tuiles compactes, pas de sous-texte. Idéal si tu veux passer vite à la galerie / zone.</p>
+        <div class="frame"><div class="sec">
+          <div class="sec-head"><span class="ey">Nos services</span><h3 class="display">Interventions les plus demandées</h3></div>
+          <div style="display:grid;gap:0.5rem;grid-template-columns:1fr 1fr">
+            <div class="svc-row compact" style="grid-template-columns:auto 1fr"><div class="ico">💧</div><h4>Fuite d'eau</h4></div>
+            <div class="svc-row compact" style="grid-template-columns:auto 1fr"><div class="ico">🔧</div><h4>Débouchage</h4></div>
+            <div class="svc-row compact" style="grid-template-columns:auto 1fr"><div class="ico">🔥</div><h4>Chauffage</h4></div>
+            <div class="svc-row compact" style="grid-template-columns:auto 1fr"><div class="ico">🛁</div><h4>Salle de bain</h4></div>
+            <div class="svc-row compact" style="grid-template-columns:auto 1fr"><div class="ico">🚿</div><h4>Sanitaire</h4></div>
+            <div class="svc-row compact" style="grid-template-columns:auto 1fr"><div class="ico">⏱</div><h4>Chauffe-eau</h4></div>
+          </div>
+          <p class="more-link"><a href="#">Demander un devis pour un autre besoin →</a></p>
+        </div></div>
+        <p class="meta"><strong>Hauteur ~</strong> 260px · −50 % · moins de détail</p>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-why">
+      <div class="variant-block">
+        <div class="variant-label">
+          <span class="tag tag-a">A · Actuel</span>
+          <h2 class="display">6 cartes + bandeau engagements</h2>
+        </div>
+        <p class="hint">Complet, rassurant, mais c’est la section la plus longue après la galerie.</p>
+        <div class="frame"><div class="sec">
+          <div class="sec-head"><span class="ey">Pourquoi Cassard</span><h3 class="display">Le sérieux d'un artisan, la réactivité d'une équipe d'urgence</h3></div>
+          <div class="why-grid">
+            <div class="why-card"><div class="ico">⏱</div><h4>Intervention en 30 min</h4><p>Sur Nîmes et l'aire urbaine, 24/7.</p></div>
+            <div class="why-card"><div class="ico">🛡</div><h4>Garantie décennale</h4><p>Vos travaux assurés 10 ans.</p></div>
+            <div class="why-card"><div class="ico">✓</div><h4>Devis gratuit, tarif clair</h4><p>Prix annoncé avant intervention.</p></div>
+            <div class="why-card"><div class="ico">📅</div><h4>15+ ans d'expérience</h4><p>Bâti ancien comme neuf.</p></div>
+            <div class="why-card"><div class="ico">🔧</div><h4>Toutes marques</h4><p>Atlantic, Ariston, Thermor…</p></div>
+            <div class="why-card"><div class="ico">📞</div><h4>Disponible 24/7</h4><p>Nuits et week-ends inclus.</p></div>
+          </div>
+          <div class="badges"><span>Garantie décennale</span><span>Assurance RC pro</span><span>Devis gratuit</span></div>
+        </div></div>
+        <p class="meta"><strong>Hauteur ~</strong> 480px · 6 blocs + footer</p>
+      </div>
+
+      <div class="variant-block">
+        <div class="variant-label">
+          <span class="tag tag-b">B · Recommandé</span>
+          <h2 class="display">4 cartes essentielles</h2>
+        </div>
+        <p class="hint">Garde ce qui convertit : rapidité, garantie, prix clair, 24/7. Supprime expérience / marques (déjà dans le hero).</p>
+        <div class="frame"><div class="sec">
+          <div class="sec-head"><span class="ey">Pourquoi Cassard</span><h3 class="display">Pourquoi nous faire confiance</h3><p>Artisan local, réactif, transparent.</p></div>
+          <div class="why-grid">
+            <div class="why-card"><div class="ico">⏱</div><h4>Intervention en 30 min</h4><p>Sur Nîmes et l'aire urbaine, 24/7.</p></div>
+            <div class="why-card"><div class="ico">🛡</div><h4>Garantie décennale</h4><p>Vos travaux assurés 10 ans.</p></div>
+            <div class="why-card"><div class="ico">✓</div><h4>Devis gratuit, tarif clair</h4><p>Prix annoncé avant intervention.</p></div>
+            <div class="why-card"><div class="ico">📞</div><h4>Disponible 24/7</h4><p>Nuits et week-ends inclus.</p></div>
+          </div>
+          <div class="badges"><span>Garantie décennale</span><span>Assurance RC pro</span><span>Devis gratuit</span></div>
+        </div></div>
+        <p class="meta"><strong>Hauteur ~</strong> 320px · −33 % · message intact</p>
+      </div>
+
+      <div class="variant-block">
+        <div class="variant-label">
+          <span class="tag tag-c">C · Ultra court</span>
+          <h2 class="display">Bandeau 4 piliers — une seule rangée</h2>
+        </div>
+        <p class="hint">Titre court + 4 pills horizontales. Engagements fusionnés dans le bandeau.</p>
+        <div class="frame"><div class="sec">
+          <div class="sec-head"><span class="ey">Pourquoi Cassard</span><h3 class="display">4 raisons de nous appeler</h3></div>
+          <div class="why-strip">
+            <div class="why-pill"><div class="ico">⏱</div><div><strong>&lt;30 min sur Nîmes</strong><span>Équipe d'urgence locale</span></div></div>
+            <div class="why-pill"><div class="ico">🛡</div><div><strong>Garantie décennale</strong><span>Travaux assurés 10 ans</span></div></div>
+            <div class="why-pill"><div class="ico">✓</div><div><strong>Devis gratuit</strong><span>Tarif annoncé avant</span></div></div>
+            <div class="why-pill"><div class="ico">📞</div><div><strong>24h/24 · 7j/7</strong><span>Joignable maintenant</span></div></div>
+          </div>
+        </div></div>
+        <p class="meta"><strong>Hauteur ~</strong> 180px · −62 % · très dense</p>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-gallery">
+      <div class="variant-block">
+        <div class="variant-label">
+          <span class="tag tag-a">A · Actuel</span>
+          <h2 class="display">Mosaïque 12 photos + grande tuile</h2>
+        </div>
+        <p class="hint">Grille 2→4 colonnes, 1ère photo ×2 sur desktop, bouton « Voir toutes les photos ». Lightbox complète.</p>
+        <div class="frame"><div class="sec-white">
+          <div class="sec-head"><span class="ey">Nos réalisations</span><h3 class="display">Des chantiers réalisés près de chez vous</h3><p>Fuites réparées, salles de bain rénovées…</p></div>
+          <div class="gal-grid-a">
+            <div class="ph hero" style="background-image:url('/Travaux/IMG_20251208_171110.jpg')"></div>
+            <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171117.jpg')"></div>
+            <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171122.jpg')"></div>
+            <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171128.jpg')"></div>
+            <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171134.jpg')"></div>
+            <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171140.jpg')"></div>
+            <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171113.jpg')"></div>
+            <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171115.jpg')"></div>
+          </div>
+          <div class="gal-btn"><span>Voir toutes les photos (24) ↓</span></div>
+        </div></div>
+        <p class="meta"><strong>Hauteur ~</strong> 520px (12 visibles) · impact visuel max · section la plus longue</p>
+      </div>
+
+      <div class="variant-block">
+        <div class="variant-label">
+          <span class="tag tag-b">B · Recommandé</span>
+          <h2 class="display">6 photos — grille uniforme</h2>
+        </div>
+        <p class="hint">Pas de tuile géante, pas de « voir tout ». 6 clichés soignés + lightbox au clic. Bon compromis preuve / scroll.</p>
+        <div class="frame"><div class="sec-white">
+          <div class="sec-head"><span class="ey">Nos réalisations</span><h3 class="display">Quelques chantiers récents</h3></div>
+          <div class="gal-grid-b">
+            <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171110.jpg')"></div>
+            <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171117.jpg')"></div>
+            <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171122.jpg')"></div>
+            <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171128.jpg')"></div>
+            <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171134.jpg')"></div>
+            <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171140.jpg')"></div>
+          </div>
+        </div></div>
+        <p class="meta"><strong>Hauteur ~</strong> 280px · −46 % · lightbox conservée</p>
+      </div>
+
+      <div class="variant-block">
+        <div class="variant-label">
+          <span class="tag tag-c">C · Ultra court</span>
+          <h2 class="display">Bandeau photos défilant</h2>
+        </div>
+        <p class="hint">Comme les avis : bande horizontale animée, titre minimal. Clic → lightbox. Très peu de hauteur.</p>
+        <div class="frame"><div class="sec-white">
+          <div class="sec-head"><span class="ey">Nos réalisations</span><h3 class="display">Sur le terrain, chez vous</h3></div>
+          <div class="gal-strip-wrap">
+            <div class="gal-strip">
+              <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171110.jpg')"></div>
+              <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171117.jpg')"></div>
+              <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171122.jpg')"></div>
+              <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171128.jpg')"></div>
+              <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171134.jpg')"></div>
+              <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171140.jpg')"></div>
+              <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171110.jpg')"></div>
+              <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171117.jpg')"></div>
+              <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171122.jpg')"></div>
+              <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171128.jpg')"></div>
+              <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171134.jpg')"></div>
+              <div class="ph" style="background-image:url('/Travaux/IMG_20251208_171140.jpg')"></div>
+            </div>
+          </div>
+        </div></div>
+        <p class="meta"><strong>Hauteur ~</strong> 140px · −73 % · effet « vitrine » rapide</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const tabs = document.getElementById("tabs");
+    tabs.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-panel]");
+      if (!btn) return;
+      tabs.querySelectorAll("button").forEach((b) => b.classList.toggle("on", b === btn));
+      document.querySelectorAll(".panel").forEach((p) => p.classList.toggle("on", p.id === "panel-" + btn.dataset.panel));
+    });
+  </script>
+</body>
+</html>

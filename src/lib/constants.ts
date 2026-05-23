@@ -4,6 +4,8 @@ export const COMPANY = {
   tagline: "Sanitaire & Chauffage",
   domain: "cassard-plombier.fr",
   url: "https://cassard-plombier.fr",
+  // TODO: fill with real SIRET (14 digits). Empty string hides the mention in the footer.
+  siret: "",
 } as const;
 
 export const CONTACT = {

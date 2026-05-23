@@ -1,26 +1,62 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import Image from "next/image";
 import type { Photo } from "@/lib/gallery";
 import Section from "./ui/Section";
 import SectionHeader from "./ui/SectionHeader";
-import Button from "./ui/Button";
 import Icon from "./ui/Icon";
 
-const INITIAL_COUNT = 12;
+const STRIP_MAX = 8;
 
 type Props = {
   photos: Photo[];
 };
 
+function StripPhoto({
+  photo,
+  index,
+  onOpen,
+}: {
+  photo: Photo;
+  index: number;
+  onOpen: (index: number) => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={() => onOpen(index)}
+      aria-label={`Agrandir la photo ${index + 1}`}
+      className="relative w-36 h-[6.5rem] sm:w-44 sm:h-[7.5rem] shrink-0 overflow-hidden rounded-xl group shadow-soft hover:shadow-soft-lg transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+    >
+      <Image
+        src={photo.src}
+        alt={photo.alt}
+        fill
+        sizes="176px"
+        className="object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+      <span
+        aria-hidden="true"
+        className="absolute inset-0 bg-primary-900/0 group-hover:bg-primary-900/25 transition-colors"
+      />
+    </button>
+  );
+}
+
 export default function GalleryClient({ photos }: Props) {
-  const [showAll, setShowAll] = useState(false);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
-  const visiblePhotos = showAll ? photos : photos.slice(0, INITIAL_COUNT);
-  const hasMore = photos.length > INITIAL_COUNT;
+  const stripPhotos = useMemo(
+    () => photos.slice(0, Math.min(STRIP_MAX, photos.length)),
+    [photos],
+  );
+
+  const track = useMemo(
+    () => [...stripPhotos, ...stripPhotos],
+    [stripPhotos],
+  );
 
   const openLightbox = useCallback((i: number) => {
     setOpenIndex(i);
@@ -33,11 +69,15 @@ export default function GalleryClient({ photos }: Props) {
   }, []);
 
   const goPrev = useCallback(() => {
-    setOpenIndex((idx) => (idx === null ? 0 : (idx - 1 + photos.length) % photos.length));
+    setOpenIndex((idx) =>
+      idx === null ? 0 : (idx - 1 + photos.length) % photos.length,
+    );
   }, [photos.length]);
 
   const goNext = useCallback(() => {
-    setOpenIndex((idx) => (idx === null ? 0 : (idx + 1) % photos.length));
+    setOpenIndex((idx) =>
+      idx === null ? 0 : (idx + 1) % photos.length,
+    );
   }, [photos.length]);
 
   useEffect(() => {
@@ -55,7 +95,6 @@ export default function GalleryClient({ photos }: Props) {
     return () => document.removeEventListener("keydown", onKey);
   }, [openIndex, goPrev, goNext]);
 
-  // Sync close on Esc / native close
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
@@ -64,7 +103,6 @@ export default function GalleryClient({ photos }: Props) {
     return () => dialog.removeEventListener("close", handleClose);
   }, []);
 
-  // Click on backdrop closes
   const handleDialogClick = (e: React.MouseEvent<HTMLDialogElement>) => {
     if (e.target === dialogRef.current) {
       closeLightbox();
@@ -74,56 +112,44 @@ export default function GalleryClient({ photos }: Props) {
   const current = openIndex !== null ? photos[openIndex] : null;
 
   return (
-    <Section id="realisations" spacing="default" className="bg-white">
+    <Section id="realisations" spacing="tight" className="bg-white">
       <SectionHeader
         eyebrow="Nos réalisations"
         title={
           <>
-            Des chantiers <span className="gradient-text">réalisés près de chez vous</span>
+            Sur le terrain, <span className="gradient-text">chez vous</span>
           </>
         }
-        description="Plus de 5000 interventions, des fuites réparées aux salles de bain rénovées."
+        className="mb-6 md:mb-8"
       />
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-        {visiblePhotos.map((p, i) => (
-          <button
-            key={p.src}
-            type="button"
-            onClick={() => openLightbox(i)}
-            aria-label={`Agrandir la photo ${i + 1} sur ${photos.length}`}
-            className={`relative aspect-square overflow-hidden rounded-2xl group shadow-soft hover:shadow-soft-lg transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2${i === 0 ? " lg:col-span-2 lg:row-span-2" : ""}`}
+      {photos.length === 0 ? (
+        <p className="text-center text-sm text-slate-600">
+          Photos de chantiers bientôt disponibles.
+        </p>
+      ) : (
+        <>
+          <div
+            className="relative overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_4%,black_96%,transparent)]"
+            aria-label="Photos de réalisations défilantes"
           >
-            <Image
-              src={p.src}
-              alt={p.alt}
-              fill
-              sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-              className="object-cover transition-transform duration-700 group-hover:scale-110"
-            />
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary-900/0 via-primary-900/0 to-primary-900/0 group-hover:from-primary-900/40 group-hover:via-primary-900/20 group-hover:to-primary-900/50 transition-all duration-300"
-            >
-              <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/95 text-primary-700 shadow-lg">
-                <Icon name="external" size={20} />
-              </span>
-            </span>
-          </button>
-        ))}
-      </div>
+            <div className="flex gap-2 sm:gap-3 w-max motion-safe:animate-scroll-x motion-reduce:animate-none motion-reduce:flex-wrap motion-reduce:w-full motion-reduce:justify-center">
+              {track.map((photo, i) => (
+                <StripPhoto
+                  key={`${photo.src}-${i}`}
+                  photo={photo}
+                  index={i % stripPhotos.length}
+                  onOpen={openLightbox}
+                />
+              ))}
+            </div>
+          </div>
 
-      {hasMore && !showAll && (
-        <div className="mt-10 flex justify-center">
-          <Button
-            variant="secondary"
-            size="lg"
-            onClick={() => setShowAll(true)}
-            iconRight={<Icon name="chevron-down" size={18} />}
-          >
-            Voir toutes les photos ({photos.length})
-          </Button>
-        </div>
+          <p className="sr-only">
+            {stripPhotos.length} photos de chantiers en bande défilante. Cliquez
+            pour agrandir et parcourir toute la galerie.
+          </p>
+        </>
       )}
 
       <dialog

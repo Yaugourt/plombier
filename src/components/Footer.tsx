@@ -1,9 +1,10 @@
 import Link from "next/link";
-import ImageWithFallback from "./ImageWithFallback";
+import Logo from "./Logo";
+import Container from "./ui/Container";
 import GoogleRatingBadge from "./GoogleRatingBadge";
 import Button from "./ui/Button";
 import Icon from "./ui/Icon";
-import { COMPANY, CONTACT } from "@/lib/constants";
+import { COMPANY, CONTACT, SOCIAL_PROOF } from "@/lib/constants";
 import { ALL_CITIES } from "@/lib/cities";
 import { getReviews } from "@/lib/reviews";
 
@@ -24,10 +25,10 @@ export default async function Footer() {
     <footer className="bg-primary-950 text-white">
       {/* CTA Band */}
       <div className="bg-primary-600">
-        <div className="container mx-auto px-4 py-6">
+        <Container className="py-5">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-center md:text-left">
-              <p className="text-lg font-bold">Besoin d&apos;un plombier en urgence ?</p>
+              <p className="text-base font-bold">Besoin d&apos;un plombier en urgence ?</p>
               <p className="text-primary-100 text-sm">
                 Intervention 24h/24, 7j/7 — Gard, Hérault, Vaucluse, Bouches-du-Rhône
               </p>
@@ -35,41 +36,26 @@ export default async function Footer() {
             <Button
               as="a"
               variant="white"
-              size="lg"
+              size="md"
               href={CONTACT.phoneTel}
-              iconLeft={<Icon name="phone" size={20} />}
+              iconLeft={<Icon name="phone" size={18} />}
               aria-label={`Appeler le ${CONTACT.phone}`}
             >
               {CONTACT.phone}
             </Button>
           </div>
-        </div>
+        </Container>
       </div>
 
-      {/* Main Footer */}
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Company Info */}
+      <Container className="py-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
-            <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <div className="relative w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center overflow-hidden">
-                <ImageWithFallback
-                  src="/logo.png"
-                  alt={COMPANY.name}
-                  width={40}
-                  height={40}
-                  className="object-contain"
-                  fallback={<span className="text-white font-bold text-lg">C</span>}
-                />
-              </div>
-              <div className="leading-tight">
-                <span className="font-bold block text-base">{COMPANY.shortName}</span>
-                <span className="text-xs text-primary-300 block">{COMPANY.tagline}</span>
-              </div>
+            <Link href="/" className="inline-block mb-4">
+              <Logo variant="full" inverted className="h-8" />
             </Link>
             <p className="text-primary-200 mb-4 text-sm leading-relaxed">
               Votre expert en plomberie, sanitaire et chauffage à {CONTACT.city} et dans tout le Gard.
-              Plus de 5 000 clients satisfaits.
+              {SOCIAL_PROOF.totalReviews} avis Google, note {SOCIAL_PROOF.rating}/5.
             </p>
             <GoogleRatingBadge rating={rating} totalRatings={totalRatings} variant="dark" />
           </div>
@@ -187,14 +173,14 @@ export default async function Footer() {
             </ul>
           </div>
         </div>
-      </div>
+      </Container>
 
-      {/* Bottom Bar */}
       <div className="border-t border-primary-800/60">
-        <div className="container mx-auto px-4 py-5">
+        <Container className="py-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-primary-300">
             <p className="text-center md:text-left">
-              © {year} {COMPANY.name} — Plombier {CONTACT.city} — SIRET XXX XXX XXX XXXXX
+              © {year} {COMPANY.name} — Plombier {CONTACT.city}
+              {COMPANY.siret ? ` — SIRET ${COMPANY.siret}` : ""}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
               <Link href="/mentions-legales" className="hover:text-white transition-colors">
@@ -208,7 +194,7 @@ export default async function Footer() {
               </Link>
             </div>
           </div>
-        </div>
+        </Container>
       </div>
     </footer>
   );

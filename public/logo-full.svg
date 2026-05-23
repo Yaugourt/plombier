@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 48" fill="none" role="img" aria-label="Cassard Sanitaire et Chauffage">
+  <rect x="0" y="0" width="48" height="48" rx="11" fill="#1d4ed8"/>
+  <path d="M33 16.5a13 13 0 1 0 .1 14" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+  <path d="M30.5 22.5c0 1.8-1.5 3.3-3.3 3.3s-3.3-1.5-3.3-3.3c0-2 3.3-5 3.3-5s3.3 3 3.3 5z" fill="#38bdf8"/>
+  <text x="58" y="21" fill="#0f172a" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="18" font-weight="700">Cassard</text>
+  <text x="58" y="38" fill="#475569" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" font-weight="500">Sanitaire &amp; Chauffage</text>
+</svg>

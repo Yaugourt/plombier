@@ -15,11 +15,7 @@ export default async function TestimonialsSection() {
       {/* Decorative overlays */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-grain opacity-[0.04]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-32 -right-32 w-[28rem] h-[28rem] rounded-full bg-accent/10 blur-3xl"
+        className="pointer-events-none absolute -top-32 -right-32 w-64 h-64 rounded-full bg-accent/10 blur-3xl"
       />
 
       <div className="relative z-10">

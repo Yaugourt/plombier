@@ -2,16 +2,17 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import ImageWithFallback from "./ImageWithFallback";
+import Logo from "./Logo";
+import Container from "./ui/Container";
 import Button from "./ui/Button";
 import Icon from "./ui/Icon";
-import { COMPANY, CONTACT } from "@/lib/constants";
+import { CONTACT } from "@/lib/constants";
 
 const navLinks = [
-  { href: "#services", label: "Services" },
-  { href: "#zone", label: "Zones" },
-  { href: "#avis", label: "Avis clients" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#services", label: "Services" },
+  { href: "/#zone", label: "Zones" },
+  { href: "/#avis", label: "Avis clients" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export default function Header() {
@@ -19,7 +20,6 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const firstMobileLinkRef = useRef<HTMLAnchorElement | null>(null);
 
-  // Scroll listener
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     handleScroll();
@@ -27,7 +27,6 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Body scroll lock + focus + Esc handling
   useEffect(() => {
     if (!isMobileMenuOpen) return;
 
@@ -39,7 +38,6 @@ export default function Header() {
     };
     document.addEventListener("keydown", handleKey);
 
-    // Focus first link
     const t = window.setTimeout(() => firstMobileLinkRef.current?.focus(), 50);
 
     return () => {
@@ -59,38 +57,27 @@ export default function Header() {
           : "bg-transparent py-3"
       }`}
     >
-      <div className="container mx-auto px-4">
+      <Container>
         <div className="flex items-center justify-between gap-4">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group min-h-[44px]">
-            <div className="relative w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
-              <ImageWithFallback
-                src="/logo.png"
-                alt={COMPANY.name}
-                width={40}
-                height={40}
-                className="object-contain"
-                fallback={<span className="text-white font-bold text-lg">C</span>}
-              />
-            </div>
-            <div
-              className={`leading-tight transition-colors ${
-                isScrolled ? "text-primary-900" : "text-white"
-              }`}
-            >
-              <span className="font-bold text-base block">{COMPANY.shortName}</span>
-              <span className="text-xs opacity-80 block">{COMPANY.tagline}</span>
-            </div>
+          <Link href="/" className="flex items-center min-h-[44px] shrink-0">
+            <Logo
+              variant="full"
+              inverted={!isScrolled}
+              className="hidden sm:block"
+              priority
+            />
+            <Logo variant="icon" className="sm:hidden" priority />
           </Link>
 
-          {/* Navigation Desktop */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-2">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium transition-colors hover:text-primary-500 ${
-                  isScrolled ? "text-slate-700" : "text-white/90"
+                className={`inline-flex items-center min-h-[44px] px-3 rounded-lg text-sm font-medium transition-colors hover:text-primary-500 ${
+                  isScrolled
+                    ? "text-slate-700 hover:bg-slate-100"
+                    : "text-white/90 hover:bg-white/10"
                 }`}
               >
                 {link.label}
@@ -98,7 +85,6 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* CTA Téléphone Desktop */}
           <div className="hidden md:block">
             <Button
               as="a"
@@ -112,7 +98,6 @@ export default function Header() {
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen((v) => !v)}
@@ -146,9 +131,8 @@ export default function Header() {
             </span>
           </button>
         </div>
-      </div>
+      </Container>
 
-      {/* Mobile Menu Overlay */}
       <div
         id="mobile-menu"
         className={`lg:hidden fixed inset-0 z-50 bg-primary-950/95 backdrop-blur-md transition-opacity duration-300 ${
@@ -178,9 +162,9 @@ export default function Header() {
               as="a"
               href={CONTACT.phoneTel}
               variant="urgence"
-              size="lg"
+              size="md"
               fullWidth
-              iconLeft={<Icon name="phone" size={20} />}
+              iconLeft={<Icon name="phone" size={18} />}
               aria-label={`Appeler le ${CONTACT.phone}`}
               onClick={closeMenu}
             >

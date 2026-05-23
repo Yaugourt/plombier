@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Variantes sections — Cassard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --p950: #172554; --p800: #1e40af; --p700: #1d4ed8; --p600: #2563eb; --p100: #dbeafe; --p50: #eff6ff;
+      --accent: #0ea5e9; --warm: #f97316;
+      --slate-900: #0f172a; --slate-600: #475569; --slate-50: #f8fafc;
+      --container: 72rem;
+    }
+    body { font-family: Outfit, system-ui, sans-serif; background: #f1f5f9; color: var(--slate-900); line-height: 1.55; }
+    .display { font-family: "Plus Jakarta Sans", Outfit, sans-serif; }
+
+    .top {
+      position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid #e2e8f0;
+      padding: 0.85rem 1.25rem; box-shadow: 0 2px 16px rgb(15 23 42 / 0.06);
+    }
+    .top-inner { max-width: var(--container); margin: 0 auto; display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; align-items: center; justify-content: space-between; }
+    .top h1 { font-size: 1rem; font-weight: 700; }
+    .top p { font-size: 0.8125rem; color: var(--slate-600); }
+    .tabs { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .tabs button {
+      border: 1px solid #e2e8f0; background: #fff; padding: 0.35rem 0.75rem; border-radius: 999px;
+      font: inherit; font-size: 0.75rem; font-weight: 600; cursor: pointer; color: var(--slate-600);
+    }
+    .tabs button.on { background: var(--p700); border-color: var(--p700); color: #fff; }
+
+    main { max-width: var(--container); margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+    .panel { display: none; }
+    .panel.on { display: block; }
+
+    .variant-block { margin-bottom: 2.5rem; }
+    .variant-label {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .variant-label h2 { font-size: 0.9375rem; font-weight: 700; }
+    .tag { font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.2rem 0.55rem; border-radius: 999px; }
+    .tag-a { background: #dcfce7; color: #166534; }
+    .tag-b { background: #dbeafe; color: #1e40af; }
+    .tag-c { background: #ffedd5; color: #c2410c; }
+    .hint { font-size: 0.8125rem; color: var(--slate-600); }
+
+    .frame {
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 1rem; overflow: hidden;
+      box-shadow: 0 12px 40px rgb(30 64 175 / 0.08);
+    }
+
+    /* shared mini components */
+    .hero-bg {
+      background: radial-gradient(ellipse at 80% -10%, rgb(14 165 233 / 0.18), transparent 50%),
+        linear-gradient(135deg, var(--p950), var(--p800));
+      color: #fff; padding: 2rem 1.75rem;
+    }
+    .eyebrow { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.6875rem; font-weight: 600; padding: 0.3rem 0.65rem; border-radius: 999px; background: rgb(255 255 255 / 0.1); border: 1px solid rgb(255 255 255 / 0.15); margin-bottom: 0.75rem; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; }
+    .h1 { font-size: clamp(1.65rem, 1rem + 1.5vw, 2.15rem); font-weight: 800; line-height: 1.08; letter-spacing: -0.02em; }
+    .accent { color: var(--accent); }
+    .sub { margin-top: 0.5rem; font-size: 0.9375rem; color: rgb(219 234 254 / 0.9); max-width: 34rem; }
+    .btn-row { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .btn { display: inline-flex; align-items: center; height: 2.75rem; padding: 0 1rem; border-radius: 999px; font-size: 0.8125rem; font-weight: 600; text-decoration: none; }
+    .btn-warm { background: var(--warm); color: #fff; }
+    .btn-ghost { border: 1px solid rgb(255 255 255 / 0.35); color: #fff; }
+
+    /* HERO A — actuel */
+    .hero-a { display: grid; gap: 1.25rem; }
+    @media (min-width: 768px) { .hero-a { grid-template-columns: 1.1fr 0.9fr; align-items: center; } }
+    .hero-a .visual { aspect-ratio: 16/10; border-radius: 0.75rem; background: rgb(255 255 255 / 0.08); border: 1px solid rgb(255 255 255 / 0.12); display: grid; place-items: center; font-size: 0.75rem; color: rgb(255 255 255 / 0.4); }
+
+    /* HERO B — stats band */
+    .hero-b .stats {
+      margin-top: 1.25rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.65rem;
+    }
+    @media (min-width: 640px) { .hero-b .stats { grid-template-columns: repeat(4, 1fr); } }
+    .hero-b .stat {
+      background: rgb(255 255 255 / 0.08); border: 1px solid rgb(255 255 255 / 0.12);
+      border-radius: 0.65rem; padding: 0.65rem 0.75rem;
+    }
+    .hero-b .stat strong { display: block; font-size: 1.125rem; font-weight: 800; }
+    .hero-b .stat span { font-size: 0.6875rem; color: rgb(219 234 254 / 0.75); }
+
+    /* HERO C — centré */
+    .hero-c { text-align: center; max-width: 40rem; margin: 0 auto; }
+    .hero-c .btn-row { justify-content: center; }
+    .hero-c .trust { margin-top: 1rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem 1.25rem; font-size: 0.75rem; color: rgb(219 234 254 / 0.85); }
+
+    /* SERVICES */
+    .sec { padding: 1.75rem; background: var(--slate-50); }
+    .sec-head { text-align: center; margin-bottom: 1.25rem; }
+    .sec-head .ey { font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--p700); background: var(--p50); border: 1px solid var(--p100); display: inline-block; padding: 0.2rem 0.55rem; border-radius: 999px; margin-bottom: 0.5rem; }
+    .sec-head h3 { font-size: 1.35rem; font-weight: 700; }
+    .sec-head p { font-size: 0.875rem; color: var(--slate-600); margin-top: 0.35rem; }
+
+    .grid-2 { display: grid; gap: 0.75rem; }
+    @media (min-width: 640px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+
+    .svc-card {
+      background: #fff; border-radius: 0.75rem; overflow: hidden; border: 1px solid #f1f5f9;
+      box-shadow: 0 6px 20px rgb(30 64 175 / 0.06);
+    }
+    .svc-card .img { aspect-ratio: 16/10; background: linear-gradient(135deg, #cbd5e1, #94a3b8); font-size: 0.6875rem; color: #64748b; display: grid; place-items: center; }
+    .svc-card .body { padding: 0.85rem 1rem; }
+    .svc-card h4 { font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .svc-card p { font-size: 0.8125rem; color: var(--slate-600); }
+
+    /* Services B — list */
+    .svc-list { display: flex; flex-direction: column; gap: 0.65rem; }
+    .svc-row {
+      display: grid; grid-template-columns: auto 1fr auto; gap: 0.85rem; align-items: center;
+      background: #fff; border-radius: 0.75rem; padding: 0.85rem 1rem; border: 1px solid #f1f5f9;
+    }
+    .svc-row .ico { width: 2.5rem; height: 2.5rem; border-radius: 0.65rem; background: var(--p50); color: var(--p700); display: grid; place-items: center; font-weight: 800; font-size: 0.875rem; }
+    .svc-row h4 { font-size: 0.9375rem; font-weight: 700; }
+    .svc-row p { font-size: 0.75rem; color: var(--slate-600); margin-top: 0.1rem; }
+    .svc-row a { font-size: 0.75rem; font-weight: 700; color: var(--p700); text-decoration: none; white-space: nowrap; }
+
+    /* Services C — bento */
+    .bento { display: grid; gap: 0.65rem; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; }
+    .bento .big { grid-column: 1 / -1; display: grid; }
+    @media (min-width: 640px) {
+      .bento { grid-template-columns: 1.2fr 0.8fr; grid-template-rows: 1fr 1fr; }
+      .bento .big { grid-column: 1; grid-row: 1 / 3; }
+    }
+    .bento .big .img { aspect-ratio: auto; min-height: 11rem; }
+    @media (min-width: 640px) { .bento .big .img { min-height: 100%; height: 100%; } }
+
+    /* AVIS */
+    .avis-dark { background: var(--p950); color: #fff; padding: 1.75rem; }
+    .avis-dark .sec-head h3 { color: #fff; }
+    .avis-dark .sec-head p { color: rgb(219 234 254 / 0.75); }
+
+    .quote-grid { display: grid; gap: 0.75rem; }
+    @media (min-width: 640px) { .quote-grid { grid-template-columns: 1fr 1fr; } }
+    .quote {
+      background: rgb(255 255 255 / 0.06); border: 1px solid rgb(255 255 255 / 0.1);
+      border-radius: 0.75rem; padding: 1rem;
+    }
+    .quote .stars { color: #fbbf24; font-size: 0.75rem; margin-bottom: 0.5rem; }
+    .quote blockquote { font-size: 0.875rem; line-height: 1.55; color: rgb(241 245 249 / 0.95); }
+    .quote cite { display: block; margin-top: 0.65rem; font-size: 0.75rem; font-style: normal; color: rgb(148 163 184); }
+
+    .featured {
+      display: grid; gap: 1rem;
+    }
+    @media (min-width: 768px) { .featured { grid-template-columns: 1.1fr 0.9fr; align-items: stretch; } }
+    .featured-main {
+      background: rgb(255 255 255 / 0.08); border: 1px solid rgb(255 255 255 / 0.12);
+      border-radius: 0.85rem; padding: 1.25rem;
+    }
+    .featured-main blockquote { font-size: 1.0625rem; font-weight: 500; line-height: 1.5; margin-top: 0.75rem; }
+    .mini-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .mini {
+      background: rgb(255 255 255 / 0.05); border-radius: 0.65rem; padding: 0.65rem 0.75rem;
+      font-size: 0.8125rem; color: rgb(226 232 240 / 0.9);
+    }
+    .mini strong { color: #fff; font-weight: 600; }
+
+    .marquee-wrap { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+    .marquee { display: flex; gap: 0.75rem; width: max-content; animation: scroll 35s linear infinite; }
+    @keyframes scroll { to { transform: translateX(-50%); } }
+    .marquee .quote { width: 18rem; flex-shrink: 0; }
+
+    /* URGENCE */
+    .urgence { background: var(--p950); color: #fff; padding: 1.75rem; }
+    .steps-3 { display: grid; gap: 0.65rem; }
+    @media (min-width: 640px) { .steps-3 { grid-template-columns: repeat(3, 1fr); } }
+    .step-card {
+      background: rgb(255 255 255 / 0.06); border: 1px solid rgb(255 255 255 / 0.1);
+      border-radius: 0.75rem; padding: 1rem;
+    }
+    .step-card .num { font-size: 0.6875rem; font-weight: 800; color: var(--accent); margin-bottom: 0.35rem; }
+    .step-card h4 { font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .step-card p { font-size: 0.8125rem; color: rgb(219 234 254 / 0.8); }
+
+    .timeline { display: flex; flex-direction: column; gap: 0; max-width: 28rem; margin: 0 auto; }
+    .tl-item { display: grid; grid-template-columns: 2rem 1fr; gap: 0.75rem; padding-bottom: 1rem; position: relative; }
+    .tl-item:not(:last-child)::before {
+      content: ""; position: absolute; left: 0.95rem; top: 1.75rem; bottom: 0; width: 2px; background: rgb(255 255 255 / 0.15);
+    }
+    .tl-dot { width: 2rem; height: 2rem; border-radius: 50%; background: var(--p600); border: 2px solid var(--accent); display: grid; place-items: center; font-size: 0.75rem; font-weight: 800; z-index: 1; }
+    .tl-item h4 { font-size: 0.9375rem; font-weight: 700; }
+    .tl-item p { font-size: 0.8125rem; color: rgb(219 234 254 / 0.8); margin-top: 0.15rem; }
+
+    .strip {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
+      background: rgb(255 255 255 / 0.06); border: 1px solid rgb(255 255 255 / 0.12);
+      border-radius: 0.85rem; padding: 1rem 1.25rem;
+    }
+    .strip ol { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; list-style: none; font-size: 0.8125rem; color: rgb(219 234 254 / 0.9); }
+    .strip ol li::before { content: "→ "; color: var(--accent); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top-inner">
+      <div>
+        <h1 class="display">Variantes sections Cassard</h1>
+        <p>Conteneur live passé à <strong>1152px</strong> — choisis les variantes à implémenter</p>
+      </div>
+      <nav class="tabs" id="tabs">
+        <button type="button" class="on" data-panel="hero">Hero</button>
+        <button type="button" data-panel="services">Services</button>
+        <button type="button" data-panel="avis">Avis</button>
+        <button type="button" data-panel="urgence">Urgence</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <div class="panel on" id="panel-hero">
+      <div class="variant-block">
+        <div class="variant-label">
+          <span class="tag tag-a">A · Actuel</span>
+          <h2 class="display">Split texte + photo</h2>
+        </div>
+        <p class="hint">C’est ce qu’on a en ligne. Équilibré, pro, bon pour mobile.</p>
+        <div class="frame"><div class="hero-bg hero-a">
+          <div>
+            <div class="eyebrow"><span class="dot"></span> Disponible 24h/24</div>
+            <h1 class="h1 display"><span class="accent">Plombier</span> d'urgence à Nîmes</h1>
+            <p class="sub">Intervention en 30 min — fuites, débouchage, chauffage.</p>
+            <div class="btn-row"><a class="btn btn-warm" href="#">Appeler</a><a class="btn btn-ghost" href="#">Devis</a></div>
+          </div>
+          <div class="visual">Photo chantier</div>
+        </div></div>
+      </div>
+
+      <div class="variant-block">
+        <div class="variant-label">
+          <span class="tag tag-b">B · Recommandé</span>
+          <h2 class="display">Bandeau stats sous le titre</h2>
+        </div>
+        <p class="hint">Remplace la grande photo par 4 preuves chiffrées — plus crédible artisan, moins vide.</p>
+        <div class="frame"><div class="hero-bg hero-b">
+          <div class="eyebrow"><span class="dot"></span> Disponible 24h/24</div>
+          <h1 class="h1 display"><span class="accent">Plombier</span> d'urgence à Nîmes</h1>
+          <p class="sub">Devis annoncé avant intervention. Joignable maintenant.</p>
+          <div class="stats">
+            <div class="stat"><strong>5,0 ★</strong><span>31 avis Google</span></div>
+            <div class="stat"><strong>&lt;30 min</strong><span>sur Nîmes</span></div>
+            <div class="stat"><strong>24h/24</strong><span>7j/7</span></div>
+            <div class="stat"><strong>15+ ans</strong><span>d'expérience</span></div>
+          </div>
+          <div class="btn-row"><a class="btn btn-warm" href="#">06 19 24 25 56</a><a class="btn btn-ghost" href="#">Devis gratuit</a></div>
+        </div></div>
+      </div>
+
+      <div class="variant-block">
+        <div class="variant-label">
+          <span class="tag tag-c">C · Option</span>
+          <h2 class="display">Centré, sans image</h2>
+        </div>
+        <p class="hint">Ultra direct pour mobile / Google Ads — tout converge vers l'appel.</p>
+        <div class="frame"><div class="hero-bg hero-c">
+          <div class="eyebrow"><span class="dot"></span> Urgence plomberie Gard</div>
+          <h1 class="h1 display">Fuite, bouchon ou panne chauffage ?<br><span class="accent">On arrive.</span></h1>
+          <p class="sub">Cassard Sanitaire et Chauffage — Nîmes et tout le Gard.</p>
+          <div class="btn-row"><a class="btn btn-warm" href="#">Appeler maintenant</a></div>
+          <div class="trust"><span>★ 5,0 · 31 avis</span><span>Devis gratuit</span><span>Garantie décennale</span></div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- SERVICES -->
+    <div class="panel" id="panel-services">
+      <div class="variant-block">
+        <div class="variant-label"><span class="tag tag-a">A · Actuel</span><h2 class="display">Grille 2 colonnes + photo</h2></div>
+        <div class="frame"><div class="sec">
+          <div class="sec-head"><span class="ey">Nos services</span><h3 class="display">Une équipe pour tous vos besoins</h3></div>
+          <div class="grid-2">
+            <article class="svc-card"><div class="img">Photo</div><div class="body"><h4>Fuites</h4><p>Détection sans casse.</p></div></article>
+            <article class="svc-card"><div class="img">Photo</div><div class="body"><h4>Débouchage</h4><p>Furet, hydrocurage.</p></div></article>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="variant-block">
+        <div class="variant-label"><span class="tag tag-b">B · Recommandé</span><h2 class="display">Liste cliquable</h2></div>
+        <p class="hint">Scan rapide, meilleur maillage SEO vers les landing pages.</p>
+        <div class="frame"><div class="sec">
+          <div class="sec-head"><span class="ey">Nos services</span><h3 class="display">Interventions les plus demandées</h3></div>
+          <div class="svc-list">
+            <div class="svc-row"><div class="ico">💧</div><div><h4>Urgence fuite d'eau</h4><p>Intervention &lt;30 min dans le Gard</p></div><a href="#">Voir →</a></div>
+            <div class="svc-row"><div class="ico">🔧</div><div><h4>Débouchage canalisation</h4><p>WC, évier, colonne — 24h/24</p></div><a href="#">Voir →</a></div>
+            <div class="svc-row"><div class="ico">🔥</div><div><h4>Chauffage & chaudière</h4><p>Toutes marques, toutes énergies</p></div><a href="#">Voir →</a></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="variant-block">
+        <div class="variant-label"><span class="tag tag-c">C · Option</span><h2 class="display">Bento asymétrique</h2></div>
+        <p class="hint">Met en avant l'urgence fuite (grosse tuile) — bon pour SEO local.</p>
+        <div class="frame"><div class="sec">
+          <div class="bento">
+            <article class="svc-card big"><div class="img">Urgence fuite — photo</div><div class="body"><h4>Urgence fuite d'eau Gard</h4><p>Notre spécialité n°1</p></div></article>
+            <article class="svc-card"><div class="body"><h4>Débouchage</h4><p>Nîmes & agglo</p></div></article>
+            <article class="svc-card"><div class="body"><h4>Chauffage</h4><p>Dépannage 24h</p></div></article>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- AVIS -->
+    <div class="panel" id="panel-avis">
+      <div class="variant-block">
+        <div class="variant-label"><span class="tag tag-a">A · Actuel</span><h2 class="display">Grille 2 avis</h2></div>
+        <div class="frame"><div class="avis-dark">
+          <div class="sec-head"><span class="ey" style="background:rgb(255 255 255/0.1);border-color:rgb(255 255 255/0.15);color:var(--accent)">Avis</span><h3 class="display">Ils nous ont fait confiance</h3></div>
+          <div class="quote-grid">
+            <div class="quote"><div class="stars">★★★★★</div><blockquote>Intervention rapide, pro et prix correct. Je recommande.</blockquote><cite>— Marie L., Nîmes</cite></div>
+            <div class="quote"><div class="stars">★★★★★</div><blockquote>Fuite réparée en moins d'une heure un dimanche soir.</blockquote><cite>— Thomas B., Alès</cite></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="variant-block">
+        <div class="variant-label"><span class="tag tag-b">B · Recommandé</span><h2 class="display">Avis vedette + liste</h2></div>
+        <p class="hint">Un long témoignage fort + aperçu des autres — plus humain.</p>
+        <div class="frame"><div class="avis-dark">
+          <div class="featured">
+            <div class="featured-main">
+              <div class="stars">★★★★★ · 5,0 sur 31 avis</div>
+              <blockquote>« Réactif, ponctuel, travail soigné. Cassard est devenu notre plombier de référence à la maison. »</blockquote>
+              <cite style="display:block;margin-top:0.75rem;font-size:0.8125rem;color:#94a3b8">— Client Google, Nîmes</cite>
+            </div>
+            <div class="mini-list">
+              <div class="mini"><strong>Canalisation débouchée</strong> — intervention en 25 min</div>
+              <div class="mini"><strong>Chaudière réparée</strong> — même jour, tarif annoncé</div>
+              <div class="mini"><strong>Fuite sous dalle</strong> — détection sans casse</div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="variant-block">
+        <div class="variant-label"><span class="tag tag-c">C · Option</span><h2 class="display">Bande défilante</h2></div>
+        <p class="hint">Effet dynamique, montre la quantité d'avis sans prendre de hauteur.</p>
+        <div class="frame"><div class="avis-dark">
+          <div class="sec-head"><h3 class="display">31 avis · note 5,0</h3></div>
+          <div class="marquee-wrap"><div class="marquee">
+            <div class="quote"><div class="stars">★★★★★</div><blockquote>Très professionnel.</blockquote><cite>— Nîmes</cite></div>
+            <div class="quote"><div class="stars">★★★★★</div><blockquote>Disponible un samedi soir.</blockquote><cite>— Alès</cite></div>
+            <div class="quote"><div class="stars">★★★★★</div><blockquote>Prix annoncé, respecté.</blockquote><cite>— Uzès</cite></div>
+            <div class="quote"><div class="stars">★★★★★</div><blockquote>Très professionnel.</blockquote><cite>— Nîmes</cite></div>
+            <div class="quote"><div class="stars">★★★★★</div><blockquote>Disponible un samedi soir.</blockquote><cite>— Alès</cite></div>
+            <div class="quote"><div class="stars">★★★★★</div><blockquote>Prix annoncé, respecté.</blockquote><cite>— Uzès</cite></div>
+          </div></div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- URGENCE -->
+    <div class="panel" id="panel-urgence">
+      <div class="variant-block">
+        <div class="variant-label"><span class="tag tag-a">A · Actuel</span><h2 class="display">3 cartes réflexes</h2></div>
+        <div class="frame"><div class="urgence">
+          <div class="sec-head" style="text-align:left;margin-bottom:1rem"><h3 class="display" style="color:#fff">3 réflexes avant qu'on arrive</h3></div>
+          <div class="steps-3">
+            <div class="step-card"><div class="num">01</div><h4>Coupez l'eau</h4><p>Vanne principale ou compteur.</p></div>
+            <div class="step-card"><div class="num">02</div><h4>Coupez l'élec</h4><p>Si eau près des prises.</p></div>
+            <div class="step-card"><div class="num">03</div><h4>Appelez-nous</h4><p>On arrive en 30 min.</p></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="variant-block">
+        <div class="variant-label"><span class="tag tag-b">B · Recommandé</span><h2 class="display">Timeline verticale</h2></div>
+        <p class="hint">Guide l'œil étape par étape — rassurant en situation de stress.</p>
+        <div class="frame"><div class="urgence">
+          <div class="timeline">
+            <div class="tl-item"><div class="tl-dot">1</div><div><h4>Coupez l'arrivée d'eau</h4><p>Vanne sous l'évier ou compteur.</p></div></div>
+            <div class="tl-item"><div class="tl-dot">2</div><div><h4>Sécurisez l'électricité</h4><p>Si risque de contact eau / prise.</p></div></div>
+            <div class="tl-item"><div class="tl-dot">3</div><div><h4>Appelez le 06 19 24 25 56</h4><p>Intervention en moins de 30 minutes.</p></div></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="variant-block">
+        <div class="variant-label"><span class="tag tag-c">C · Option</span><h2 class="display">Bande compacte + CTA</h2></div>
+        <p class="hint">Prend peu de place, garde le message urgence sans alourdir la page.</p>
+        <div class="frame"><div class="urgence">
+          <div class="strip">
+            <ol><li>Coupez l'eau</li><li>Coupez l'élec si besoin</li><li>Appelez-nous</li></ol>
+            <a class="btn btn-warm" href="#">06 19 24 25 56</a>
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const tabs = document.getElementById("tabs");
+    tabs.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-panel]");
+      if (!btn) return;
+      tabs.querySelectorAll("button").forEach(b => b.classList.remove("on"));
+      btn.classList.add("on");
+      document.querySelectorAll(".panel").forEach(p => p.classList.remove("on"));
+      document.getElementById("panel-" + btn.dataset.panel).classList.add("on");
+    });
+  </script>
+</body>
+</html>
