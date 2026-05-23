@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SchemaOrg from "@/components/SchemaOrg";
+import StickyCallButton from "@/components/StickyCallButton";
+import ScrollReveal from "@/components/ScrollReveal";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -24,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | Urgence Plombier Nîmes Gard",
   },
   description:
-    "Urgence plombier Nîmes Gard - Intervention rapide 24h/24, 7j/7. Cassard Sanitaire et Chauffage, votre plombier d'urgence dans le Gard (30), Hérault (34), Bouches-du-Rhône (13) et Vaucluse (84). Plus de 5000 avis clients. Appelez le 06 19 24 25 56.",
+    "Urgence plombier Nîmes Gard - Intervention rapide 24h/24, 7j/7. Cassard Sanitaire et Chauffage, votre plombier d'urgence dans le Gard (30), Hérault (34), Bouches-du-Rhône (13) et Vaucluse (84). 31 avis Google, note 5/5. Appelez le 06 19 24 25 56.",
   keywords: [
     "urgence plombier Nîmes",
     "urgence plombier Gard",
@@ -61,7 +63,7 @@ export const metadata: Metadata = {
     siteName: "Cassard Sanitaire et Chauffage",
     title: "Urgence Plombier Nîmes Gard 24h/24 | Intervention rapide",
     description:
-      "Urgence plombier Nîmes Gard - Intervention 24h/24 dans le Gard, Hérault, Bouches-du-Rhône et Vaucluse. Plus de 5000 avis positifs. Appelez le 06 19 24 25 56.",
+      "Urgence plombier Nîmes Gard - Intervention 24h/24 dans le Gard, Hérault, Bouches-du-Rhône et Vaucluse. 31 avis Google, note 5/5. Appelez le 06 19 24 25 56.",
     images: [
       {
         url: "/og-image.jpg",
@@ -107,16 +109,19 @@ export default function RootLayout({
     <html lang="fr" className={`${outfit.variable} ${jakarta.variable}`}>
       <head>
         <SchemaOrg />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <meta name="theme-color" content="#1e40af" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="alternate icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
+        <meta name="theme-color" content="#1e3a8a" />
         <meta name="geo.region" content="FR-30" />
         <meta name="geo.placename" content="Nîmes" />
       </head>
-      <body className="antialiased min-h-screen flex flex-col">
+      <body className="antialiased min-h-screen flex flex-col bg-background text-foreground">
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <StickyCallButton />
+        <ScrollReveal />
       </body>
     </html>
   );

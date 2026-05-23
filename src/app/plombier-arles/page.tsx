@@ -1,35 +1,21 @@
 import type { Metadata } from "next";
-import CityPageTemplate, { generateCityMetadata } from "@/components/CityPageTemplate";
+import CityPageTemplate from "@/components/CityPageTemplate";
+import { CITIES } from "@/lib/cities";
+import { SOCIAL_PROOF } from "@/lib/constants";
 
-const cityData = {
-    cityName: "Arles",
-    citySlug: "arles",
-    departement: "Bouches-du-Rhône",
-    departementCode: "13",
-    nearbyAreas: [
-        "Saint-Martin-de-Crau",
-        "Fontvieille",
-        "Maussane-les-Alpilles",
-        "Les Baux-de-Provence",
-        "Mouriès",
-        "Saint-Rémy-de-Provence",
-        "Tarascon",
-        "Saintes-Maries-de-la-Mer",
-    ],
-    specificServices: [
-        "Fuite d'eau",
-        "Débouchage canalisation",
-        "Réparation chauffage",
-        "Installation sanitaire",
-        "Chauffe-eau",
-        "Pompe à chaleur",
-        "Salle de bain",
-        "Urgence 24h",
-    ],
+const city = CITIES.arles;
+
+export const metadata: Metadata = {
+    title: `Plombier ${city.name} — Urgence 24h/24 | Cassard`,
+    description: `Plombier d'urgence à ${city.name} (${city.postalCodes[0]}). Intervention en ${city.interventionTime}. Fuites, débouchage, chauffage. ${SOCIAL_PROOF.totalReviews} avis Google.`,
+    alternates: { canonical: `https://cassard-plombier.fr/${city.slug}` },
+    openGraph: {
+        title: `Plombier ${city.name} 24h/24 — Cassard`,
+        description: `Plombier d'urgence à ${city.name}, intervention en ${city.interventionTime}.`,
+        url: `https://cassard-plombier.fr/${city.slug}`,
+    },
 };
 
-export const metadata: Metadata = generateCityMetadata(cityData);
-
-export default function PlombierArlesPage() {
-    return <CityPageTemplate {...cityData} />;
+export default function Page() {
+    return <CityPageTemplate city={city} />;
 }

@@ -1,38 +1,38 @@
-"use client";
+import Icon from "./ui/Icon";
+import { SOCIAL_PROOF } from "@/lib/constants";
 
-import { useEffect, useState } from "react";
+type Props = {
+  rating?: number;
+  totalRatings?: number;
+  variant?: "light" | "dark";
+  className?: string;
+};
 
-export default function GoogleRatingBadge() {
-  const [rating, setRating] = useState(5.0);
-  const [totalRatings, setTotalRatings] = useState(5014);
-
-  useEffect(() => {
-    async function fetchRating() {
-      try {
-        const response = await fetch("/api/reviews");
-        const data = await response.json();
-        if (data.rating) setRating(data.rating);
-        if (data.totalRatings) setTotalRatings(data.totalRatings);
-      } catch (error) {
-        console.error("Error fetching rating:", error);
-      }
-    }
-
-    fetchRating();
-  }, []);
+export default function GoogleRatingBadge({
+  rating = SOCIAL_PROOF.rating,
+  totalRatings = SOCIAL_PROOF.totalReviews,
+  variant = "dark",
+  className = "",
+}: Props) {
+  const valueColor = variant === "dark" ? "text-white" : "text-primary-900";
+  const subColor = variant === "dark" ? "text-primary-200/80" : "text-slate-600";
 
   return (
-    <div className="flex items-center gap-2">
-      <div className="flex -space-x-1">
-        {[...Array(5)].map((_, i) => (
-          <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
+    <div className={`flex items-center gap-2 ${className}`}>
+      <div className="flex items-center -space-x-0.5" aria-hidden="true">
+        {[0, 1, 2, 3, 4].map((i) => (
+          <Icon
+            key={i}
+            name="star-fill"
+            size={18}
+            className="text-yellow-400"
+          />
         ))}
       </div>
-      <span className="font-semibold">{rating.toFixed(1)}</span>
-      <span className="text-primary-200">({totalRatings.toLocaleString('fr-FR')} avis Google)</span>
+      <span className={`font-semibold ${valueColor}`}>{rating.toFixed(1)}</span>
+      <span className={`text-sm ${subColor}`}>
+        ({totalRatings.toLocaleString("fr-FR")} avis Google)
+      </span>
     </div>
   );
 }
-

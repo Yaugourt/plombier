@@ -1,267 +1,442 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Section from "@/components/ui/Section";
+import SectionHeader from "@/components/ui/SectionHeader";
+import Card from "@/components/ui/Card";
+import Button from "@/components/ui/Button";
+import Icon from "@/components/ui/Icon";
+import { ALL_CITIES, type City } from "@/lib/cities";
+import { COMPANY, CONTACT, SOCIAL_PROOF } from "@/lib/constants";
 
-interface CityPageProps {
-    cityName: string;
-    citySlug: string;
-    departement: string;
-    departementCode: string;
-    population?: string;
-    nearbyAreas: string[];
-    specificServices?: string[];
+type Props = { city: City };
+
+function slugify(input: string): string {
+    return input
+        .normalize("NFD")
+        .replace(/\p{Diacritic}/gu, "")
+        .toLowerCase()
+        .replace(/[‘’']/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "");
 }
 
-export function generateCityMetadata(props: CityPageProps): Metadata {
-    const { cityName, departement, departementCode } = props;
+function nearbySlug(name: string): string {
+    return `plombier-${slugify(name)}`;
+}
 
-    return {
-        title: `Urgence Plombier ${cityName} (${departementCode}) | Intervention 24h/24`,
-        description: `Urgence plombier ${cityName} - Intervention rapide 24h/24, 7j/7. Cassard Sanitaire et Chauffage, votre plombier d'urgence à ${cityName} et dans le ${departement}. Appelez le 06 19 24 25 56.`,
-        keywords: [
-            `urgence plombier ${cityName}`,
-            `plombier ${cityName}`,
-            `plombier urgence ${cityName}`,
-            `dépannage plomberie ${cityName}`,
-            `fuite d'eau ${cityName}`,
-            `débouchage ${cityName}`,
-            `plombier ${departementCode}`,
-            `plombier ${departement}`,
-        ],
-        alternates: {
-            canonical: `https://cassard-plombier.fr/plombier-${props.citySlug}`,
+const CITY_SLUGS = new Set(ALL_CITIES.map((c) => c.slug));
+
+const SERVICES_TEMPLATE: { name: string; icon: React.ComponentProps<typeof Icon>["name"]; describe: (c: City) => string }[] = [
+    {
+        name: "Recherche de fuite",
+        icon: "drop",
+        describe: (c) =>
+            `Détection de fuite à ${c.name} sans casse : caméra thermique, gaz traceur, électroacoustique. Diagnostic gratuit, intervention en ${c.interventionTime}.`,
+    },
+    {
+        name: "Débouchage canalisation",
+        icon: "wrench",
+        describe: (c) =>
+            `Canalisation bouchée à ${c.name} ? Furet, hydrocurage et caméra d'inspection. Intervention 24h/24 dans tout le ${c.department}.`,
+    },
+    {
+        name: "Chauffage & chaudière",
+        icon: "fire",
+        describe: (c) =>
+            `Panne chaudière, radiateur froid, pompe à chaleur : dépannage chauffage à ${c.name} toutes marques (gaz, fioul, PAC, électrique).`,
+    },
+    {
+        name: "Sanitaire & robinetterie",
+        icon: "bath",
+        describe: (c) =>
+            `Installation et réparation WC, lavabo, douche, mitigeur à ${c.name}. Pièces de qualité, garantie sur la pose.`,
+    },
+    {
+        name: "Rénovation salle de bain",
+        icon: "tools",
+        describe: (c) =>
+            `Rénovation complète de salle de bain à ${c.name} : douche italienne, faïence, plomberie. Devis gratuit sur place.`,
+    },
+    {
+        name: "Chauffe-eau",
+        icon: "drop",
+        describe: (c) =>
+            `Dépannage et remplacement de chauffe-eau à ${c.name} (Atlantic, Ariston, Thermor, De Dietrich). Intervention le jour même.`,
+    },
+];
+
+const GUARANTEES = [
+    "Devis gratuit et transparent",
+    "Garantie décennale sur tous les travaux",
+    "Tarifs annoncés avant intervention",
+    "Disponible 24h/24, 7j/7 et jours fériés",
+];
+
+export default function CityPageTemplate({ city }: Props) {
+    const otherCities = ALL_CITIES.filter((c) => c.slug !== city.slug);
+
+    const localBusinessSchema = {
+        "@context": "https://schema.org",
+        "@type": "Plumber",
+        name: `${COMPANY.name} — ${city.name}`,
+        url: `${COMPANY.url}/${city.slug}`,
+        telephone: `+33${CONTACT.phoneRaw.slice(1)}`,
+        priceRange: "€€",
+        areaServed: {
+            "@type": "City",
+            name: city.name,
+        },
+        address: {
+            "@type": "PostalAddress",
+            addressLocality: city.name,
+            postalCode: city.postalCodes[0],
+            addressRegion: city.department,
+            addressCountry: "FR",
+        },
+        aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: SOCIAL_PROOF.rating,
+            reviewCount: SOCIAL_PROOF.totalReviews,
         },
     };
-}
 
-export default function CityPageTemplate({
-    cityName,
-    citySlug,
-    departement,
-    departementCode,
-    nearbyAreas,
-    specificServices = ["Fuite d'eau", "Débouchage", "Chauffage", "Sanitaire"],
-}: CityPageProps) {
+    const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: city.faq.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: {
+                "@type": "Answer",
+                text: f.a,
+            },
+        })),
+    };
+
     return (
         <>
-            {/* Hero Section */}
-            <section className="relative min-h-[70vh] flex items-center bg-gradient-to-br from-primary-950 via-primary-800 to-primary-700 overflow-hidden">
-                <div className="absolute inset-0 overflow-hidden">
-                    <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl"></div>
-                    <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-accent/20 rounded-full blur-3xl"></div>
-                </div>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+            />
 
-                <div className="container mx-auto px-4 pt-24 pb-12 relative z-10">
-                    <div className="max-w-3xl">
-                        {/* Breadcrumb */}
-                        <nav className="mb-6" aria-label="Fil d'ariane">
-                            <ol className="flex items-center gap-2 text-sm text-primary-200">
-                                <li>
-                                    <Link href="/" className="hover:text-white transition-colors">
-                                        Accueil
-                                    </Link>
-                                </li>
-                                <li>/</li>
-                                <li className="text-white font-medium">
-                                    Plombier {cityName}
-                                </li>
-                            </ol>
-                        </nav>
+            {/* 1. Hero local */}
+            <section className="relative bg-gradient-hero text-white pt-28 md:pt-32 pb-16 md:pb-24 overflow-hidden">
+                <div className="absolute inset-0 bg-pattern-grid opacity-[0.08]" aria-hidden="true" />
+                <div className="absolute inset-0 bg-grain opacity-[0.04]" aria-hidden="true" />
+                <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-primary-500/20 rounded-full blur-3xl" aria-hidden="true" />
+                <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-accent/15 rounded-full blur-3xl" aria-hidden="true" />
 
-                        {/* Badge */}
-                        <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6">
-                            <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
+                <div className="relative max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
+                    <nav className="mb-6 text-sm text-primary-200" aria-label="Fil d'ariane">
+                        <ol className="flex items-center gap-2">
+                            <li>
+                                <Link href="/" className="hover:text-white transition-colors">
+                                    Accueil
+                                </Link>
+                            </li>
+                            <li aria-hidden="true">
+                                <Icon name="chevron-right" size={14} />
+                            </li>
+                            <li className="text-white font-medium">Plombier {city.name}</li>
+                        </ol>
+                    </nav>
+
+                    <div className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-white/10 text-accent border border-white/15">
+                        <Icon name="location" size={14} />
+                        Plombier {city.department} — {city.postalCodes[0]}
+                    </div>
+
+                    <h1 className="font-display font-bold tracking-tight text-balance leading-[1.05] text-[clamp(2.25rem,1.2rem+4vw,4rem)] max-w-4xl">
+                        Plombier d&apos;urgence à {city.name}{" "}
+                        <span className="text-accent">24h/24</span>
+                    </h1>
+
+                    <p className="mt-6 text-pretty text-lg md:text-xl text-primary-100 max-w-2xl leading-relaxed">
+                        {city.population} • Intervention en {city.interventionTime} • Zone {city.department}
+                    </p>
+
+                    {/* Trust strip */}
+                    <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-primary-100">
+                        <div className="flex items-center gap-2">
+                            <span className="flex items-center gap-0.5 text-accent">
+                                {[0, 1, 2, 3, 4].map((i) => (
+                                    <Icon key={i} name="star-fill" size={16} />
+                                ))}
                             </span>
-                            <span className="text-base font-medium text-white">Disponible 24h/24 - 7j/7</span>
+                            <span className="font-semibold text-white">{SOCIAL_PROOF.rating.toFixed(1)}/5</span>
+                            <span>({SOCIAL_PROOF.totalReviews} avis Google)</span>
                         </div>
-
-                        {/* Title */}
-                        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-5">
-                            Urgence <span className="text-accent">Plombier {cityName}</span>
-                            <br />
-                            Intervention rapide 24h/24
-                        </h1>
-
-                        {/* Subtitle */}
-                        <p className="text-lg md:text-xl text-primary-100 mb-8 max-w-xl">
-                            Besoin d'un <strong>plombier en urgence à {cityName}</strong> ?
-                            Cassard Sanitaire et Chauffage intervient rapidement dans tout le {departement} ({departementCode}).
-                            <strong> Plus de 5000 clients satisfaits.</strong>
-                        </p>
-
-                        {/* CTAs */}
-                        <div className="flex flex-col sm:flex-row gap-4">
-                            <a
-                                href="tel:0619242556"
-                                className="group relative inline-flex items-center justify-center gap-2 bg-white text-primary-700 px-6 py-4 rounded-full font-semibold text-lg hover:bg-primary-50 transition-all hover:scale-105 shadow-xl shadow-black/15"
-                            >
-                                <span className="relative flex h-2.5 w-2.5">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-500 opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary-600"></span>
-                                </span>
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                </svg>
-                                06 19 24 25 56
-                            </a>
-                            <a
-                                href="#contact"
-                                className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm border border-white/30 text-white px-6 py-4 rounded-full font-medium hover:bg-white/20 transition-all"
-                            >
-                                Demander un devis gratuit
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                </svg>
-                            </a>
+                        <span className="hidden md:inline text-white/30">•</span>
+                        <div className="flex items-center gap-2">
+                            <Icon name="shield" size={16} className="text-accent" />
+                            Garantie décennale
                         </div>
+                        <span className="hidden md:inline text-white/30">•</span>
+                        <div className="flex items-center gap-2">
+                            <Icon name="check-circle" size={16} className="text-accent" />
+                            Devis gratuit
+                        </div>
+                    </div>
+
+                    <div className="mt-10 flex flex-col sm:flex-row gap-4">
+                        <Button
+                            as="a"
+                            href={CONTACT.phoneTel}
+                            variant="urgence"
+                            size="lg"
+                            iconLeft={<Icon name="phone" size={20} />}
+                            aria-label={`Appeler le plombier d'urgence à ${city.name}`}
+                        >
+                            Appeler {CONTACT.phone}
+                        </Button>
+                        <Button
+                            as="link"
+                            href="/#contact"
+                            variant="outline"
+                            size="lg"
+                            iconRight={<Icon name="arrow-right" size={18} />}
+                        >
+                            Devis gratuit
+                        </Button>
                     </div>
                 </div>
             </section>
 
-            {/* Services Section */}
-            <section className="py-16 md:py-24 bg-slate-50">
-                <div className="container mx-auto px-4">
-                    <div className="text-center max-w-2xl mx-auto mb-12">
-                        <span className="inline-block text-primary-600 font-medium text-sm uppercase tracking-wider mb-3">
-                            Nos services à {cityName}
-                        </span>
-                        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
-                            Plombier <span className="gradient-text">{cityName}</span> : tous nos services
+            {/* 2. Plombier à {city.name} - contenu unique */}
+            <Section spacing="default" className="bg-white">
+                <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
+                    <div className="lg:col-span-8">
+                        <h2 className="font-display font-bold tracking-tight text-balance leading-[1.1] text-[clamp(1.75rem,0.8rem+3vw,2.75rem)] text-slate-900">
+                            Votre plombier à {city.name}
                         </h2>
-                        <p className="text-base text-slate-600">
-                            Intervention rapide pour tous vos besoins en plomberie, chauffage et sanitaire à {cityName} et ses environs.
+                        <p className="mt-6 text-slate-700 leading-relaxed text-lg max-w-prose">
+                            {city.intro}
                         </p>
+
+                        <h3 className="mt-10 text-2xl font-display font-bold text-slate-900">
+                            Notre expertise locale
+                        </h3>
+                        <p className="mt-4 text-slate-700 leading-relaxed text-lg max-w-prose">
+                            {city.localContext}
+                        </p>
+
+                        <div className="mt-8 flex flex-wrap gap-2">
+                            {city.postalCodes.map((cp) => (
+                                <span
+                                    key={cp}
+                                    className="inline-flex items-center gap-1.5 px-3 h-8 rounded-full bg-primary-50 border border-primary-100 text-primary-700 text-sm font-medium"
+                                >
+                                    <Icon name="location" size={12} />
+                                    {cp}
+                                </span>
+                            ))}
+                        </div>
                     </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {specificServices.map((service) => (
-                            <div
-                                key={service}
-                                className="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300"
-                            >
-                                <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600 mb-4 group-hover:bg-primary-600 group-hover:text-white transition-colors">
-                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                                    </svg>
-                                </div>
-                                <h3 className="text-lg font-bold text-slate-900 mb-2">{service}</h3>
-                                <p className="text-slate-600 text-sm">
-                                    {service} à {cityName} ? Intervention rapide 24h/24 par nos plombiers qualifiés.
-                                </p>
+                    <aside className="lg:col-span-4">
+                        <Card variant="elevated" padding="loose" className="lg:sticky lg:top-24">
+                            <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-primary-100 text-primary-700 mb-5">
+                                <Icon name="clock" size={28} />
                             </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Why Choose Us */}
-            <section className="py-16 md:py-24 bg-white">
-                <div className="container mx-auto px-4">
-                    <div className="grid lg:grid-cols-2 gap-12 items-center">
-                        <div>
-                            <span className="inline-block text-primary-600 font-medium text-sm uppercase tracking-wider mb-3">
-                                Pourquoi nous choisir
-                            </span>
-                            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-6">
-                                Votre plombier de confiance à <span className="gradient-text">{cityName}</span>
-                            </h2>
-                            <p className="text-base text-slate-600 mb-8">
-                                Cassard Sanitaire et Chauffage est votre partenaire de confiance pour tous vos travaux de plomberie à {cityName}.
-                                Avec plus de 5000 clients satisfaits, nous garantissons un service professionnel et rapide.
+                            <h3 className="text-xl font-display font-bold text-slate-900">
+                                Intervention rapide à {city.name}
+                            </h3>
+                            <p className="mt-2 text-slate-600 text-sm">
+                                Temps moyen sur place :{" "}
+                                <span className="font-semibold text-slate-900">{city.interventionTime}</span>
                             </p>
 
-                            <ul className="space-y-4">
-                                {[
-                                    "Intervention en moins de 30 minutes à " + cityName,
-                                    "Disponible 24h/24, 7j/7 y compris jours fériés",
-                                    "Devis gratuit et transparent",
-                                    "Techniciens qualifiés et expérimentés",
-                                    "Garantie sur tous nos travaux",
-                                ].map((item) => (
-                                    <li key={item} className="flex items-start gap-3">
-                                        <svg className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                        <span className="text-slate-700">{item}</span>
+                            <ul className="mt-6 space-y-3">
+                                {GUARANTEES.map((g) => (
+                                    <li key={g} className="flex items-start gap-3">
+                                        <Icon name="check" size={18} className="text-primary-600 mt-0.5" />
+                                        <span className="text-slate-700 text-sm">{g}</span>
                                     </li>
                                 ))}
                             </ul>
-                        </div>
 
-                        <div className="bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl p-8">
-                            <h3 className="text-xl font-bold text-slate-900 mb-6">
-                                Besoin d'un plombier à {cityName} ?
-                            </h3>
-                            <p className="text-slate-600 mb-6">
-                                Appelez-nous maintenant pour une intervention rapide dans le {departement}.
-                            </p>
-                            <a
-                                href="tel:0619242556"
-                                className="flex items-center justify-center gap-3 bg-primary-600 hover:bg-primary-700 text-white px-6 py-4 rounded-xl font-semibold text-lg transition-all hover:scale-105 w-full"
-                            >
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                </svg>
-                                06 19 24 25 56
-                            </a>
-                        </div>
-                    </div>
+                            <div className="mt-7">
+                                <Button
+                                    as="a"
+                                    href={CONTACT.phoneTel}
+                                    variant="urgence"
+                                    size="lg"
+                                    fullWidth
+                                    iconLeft={<Icon name="phone" size={18} />}
+                                >
+                                    Appeler maintenant
+                                </Button>
+                            </div>
+                        </Card>
+                    </aside>
                 </div>
-            </section>
+            </Section>
 
-            {/* Nearby Areas */}
-            <section className="py-16 md:py-24 bg-slate-50">
-                <div className="container mx-auto px-4">
-                    <div className="text-center max-w-2xl mx-auto mb-12">
-                        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
-                            Intervention aussi dans les environs de {cityName}
-                        </h2>
-                        <p className="text-base text-slate-600">
-                            Nous couvrons également les communes voisines pour vos urgences plomberie.
-                        </p>
+            {/* 3. Services locaux */}
+            <Section spacing="default" className="bg-slate-50">
+                <SectionHeader
+                    eyebrow={`Services • ${city.name}`}
+                    title={<>Nos services à {city.name}</>}
+                    description={`Plomberie, chauffage, sanitaire : tous nos services adaptés aux spécificités de ${city.name} et du ${city.department}.`}
+                />
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {SERVICES_TEMPLATE.map((s) => (
+                        <Card key={s.name} variant="elevated" hover padding="default">
+                            <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-primary-100 text-primary-700 mb-4">
+                                <Icon name={s.icon} size={22} />
+                            </div>
+                            <h3 className="text-lg font-display font-bold text-slate-900">{s.name}</h3>
+                            <p className="mt-2 text-slate-600 leading-relaxed text-sm">
+                                {s.describe(city)}
+                            </p>
+                        </Card>
+                    ))}
+                </div>
+            </Section>
+
+            {/* 4. Témoignage local */}
+            <Section spacing="tight" className="bg-white" containerSize="narrow">
+                <Card variant="elevated" padding="loose" className="relative overflow-hidden">
+                    <Icon
+                        name="quote"
+                        size={80}
+                        className="absolute -top-2 -right-2 text-accent/20"
+                    />
+                    <div className="relative">
+                        <div className="flex items-center gap-0.5 text-accent">
+                            {[0, 1, 2, 3, 4].map((i) => (
+                                <Icon key={i} name="star-fill" size={18} />
+                            ))}
+                        </div>
+                        <blockquote className="mt-5 text-xl md:text-2xl text-slate-800 leading-relaxed font-medium text-balance">
+                            « {city.testimonial.text} »
+                        </blockquote>
+                        <footer className="mt-6 text-sm text-slate-600">
+                            <span className="font-semibold text-slate-900">
+                                {city.testimonial.name}
+                            </span>{" "}
+                            — {city.testimonial.quartier} • {city.testimonial.service}
+                        </footer>
                     </div>
+                </Card>
+            </Section>
 
-                    <div className="flex flex-wrap justify-center gap-3">
-                        {nearbyAreas.map((area) => (
-                            <span
-                                key={area}
-                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-white text-slate-700 shadow-sm hover:shadow-md transition-all"
+            {/* 5. FAQ locale */}
+            <Section spacing="default" className="bg-slate-50" containerSize="narrow">
+                <SectionHeader
+                    eyebrow="FAQ"
+                    title={<>Questions fréquentes — Plombier {city.name}</>}
+                />
+                <div className="space-y-4">
+                    {city.faq.map((item, idx) => (
+                        <Card key={idx} padding="default" className="reveal">
+                            <details className="group">
+                                <summary className="flex items-center justify-between cursor-pointer list-none gap-4 [&::-webkit-details-marker]:hidden">
+                                    <h3 className="text-lg font-semibold text-slate-900">
+                                        {item.q}
+                                    </h3>
+                                    <Icon
+                                        name="plus"
+                                        size={20}
+                                        className="text-primary-600 transition-transform duration-300 group-open:rotate-45 flex-shrink-0"
+                                    />
+                                </summary>
+                                <p className="mt-4 text-slate-600 leading-relaxed">{item.a}</p>
+                            </details>
+                        </Card>
+                    ))}
+                </div>
+            </Section>
+
+            {/* 6. Maillage interne */}
+            <Section spacing="tight" className="bg-white" containerSize="narrow">
+                <SectionHeader
+                    title={<>On intervient aussi près de {city.name}</>}
+                    description={`Nos plombiers se déplacent dans toutes les communes autour de ${city.name}.`}
+                />
+                <div className="flex flex-wrap justify-center gap-2.5">
+                    {city.nearby.map((n) => {
+                        const targetSlug = nearbySlug(n);
+                        const hasPage = CITY_SLUGS.has(targetSlug);
+                        const href = hasPage ? `/${targetSlug}` : "/#zones";
+                        return (
+                            <Link
+                                key={n}
+                                href={href}
+                                className="px-4 h-11 inline-flex items-center gap-1.5 rounded-full border border-slate-200 hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 transition text-sm text-slate-700"
                             >
-                                <svg className="w-4 h-4 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                                {area}
+                                <Icon name="location" size={14} className="text-primary-500" />
+                                {n}
+                            </Link>
+                        );
+                    })}
+                </div>
+
+                {otherCities.length > 0 && (
+                    <p className="mt-10 text-center text-sm text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                        <span className="font-semibold text-slate-900">
+                            Découvrez nos autres villes :
+                        </span>{" "}
+                        {otherCities.map((c, i) => (
+                            <span key={c.slug}>
+                                <Link
+                                    href={`/${c.slug}`}
+                                    className="text-primary-700 hover:text-primary-900 underline-offset-2 hover:underline"
+                                >
+                                    Plombier {c.name}
+                                </Link>
+                                {i < otherCities.length - 1 ? " • " : ""}
                             </span>
                         ))}
+                    </p>
+                )}
+            </Section>
+
+            {/* 7. CTA final urgence */}
+            <Section
+                spacing="default"
+                className="bg-primary-950 text-white relative overflow-hidden"
+                containerSize="narrow"
+            >
+                <div className="absolute inset-0 bg-grain opacity-[0.04]" aria-hidden="true" />
+                <div
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/10 rounded-full blur-3xl"
+                    aria-hidden="true"
+                />
+                <div className="relative text-center">
+                    <SectionHeader
+                        eyebrow="Urgence 24h/24"
+                        invert
+                        title={<>Une urgence à {city.name} ?</>}
+                        description={`Fuite, dégât des eaux, panne chauffage — appelez-nous, intervention en ${city.interventionTime}.`}
+                    />
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <Button
+                            as="a"
+                            href={CONTACT.phoneTel}
+                            variant="urgence"
+                            size="xl"
+                            iconLeft={<Icon name="phone" size={22} />}
+                        >
+                            Appeler {CONTACT.phone}
+                        </Button>
+                        <Button
+                            as="link"
+                            href="/#contact"
+                            variant="outline"
+                            size="xl"
+                            iconRight={<Icon name="arrow-right" size={20} />}
+                        >
+                            Demander un devis
+                        </Button>
                     </div>
                 </div>
-            </section>
-
-            {/* CTA Section */}
-            <section id="contact" className="py-16 md:py-24 bg-primary-950 text-white">
-                <div className="container mx-auto px-4 text-center">
-                    <h2 className="text-2xl md:text-3xl font-bold mb-4">
-                        Urgence plombier {cityName} ? Appelez maintenant !
-                    </h2>
-                    <p className="text-lg text-primary-200 mb-8 max-w-2xl mx-auto">
-                        Intervention rapide 24h/24 à {cityName} et dans tout le {departement}.
-                        Devis gratuit, travaux garantis.
-                    </p>
-                    <a
-                        href="tel:0619242556"
-                        className="inline-flex items-center gap-3 bg-white text-primary-700 px-8 py-4 rounded-full font-bold text-lg hover:bg-primary-50 transition-all hover:scale-105 shadow-xl"
-                    >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                        </svg>
-                        06 19 24 25 56
-                    </a>
-                </div>
-            </section>
+            </Section>
         </>
     );
 }
+

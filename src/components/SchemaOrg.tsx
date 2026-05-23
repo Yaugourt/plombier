@@ -1,3 +1,5 @@
+import { SOCIAL_PROOF, GOOGLE_MAPS_URL } from "@/lib/constants";
+
 export default function SchemaOrg() {
   const localBusinessSchema = {
     "@context": "https://schema.org",
@@ -103,14 +105,12 @@ export default function SchemaOrg() {
     ],
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: "5.0",
-      reviewCount: "5014",
+      ratingValue: String(SOCIAL_PROOF.rating),
+      reviewCount: String(SOCIAL_PROOF.totalReviews),
       bestRating: "5",
       worstRating: "1",
     },
-    sameAs: [
-      // Ajouter les liens vers les réseaux sociaux si disponibles
-    ],
+    sameAs: [GOOGLE_MAPS_URL],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Services de plomberie",
