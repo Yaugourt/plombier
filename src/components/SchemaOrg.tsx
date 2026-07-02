@@ -11,7 +11,7 @@ export default function SchemaOrg() {
       "Urgence plombier Nîmes Gard - Intervention rapide 24h/24 dans le Gard (30), Hérault (34), Bouches-du-Rhône (13) et Vaucluse (84). Spécialiste plomberie d'urgence, sanitaire et chauffage.",
     url: "https://cassard-plombier.fr",
     telephone: "+33619242556",
-    email: "contact@cassard-plombier.fr",
+    email: "cassard.sc@outlook.fr",
     logo: "https://cassard-plombier.fr/logo.png",
     image: "https://cassard-plombier.fr/og-image.jpg",
     priceRange: "€€",

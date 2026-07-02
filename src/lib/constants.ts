@@ -12,7 +12,7 @@ export const CONTACT = {
   phone: "06 19 24 25 56",
   phoneRaw: "0619242556",
   phoneTel: "tel:+33619242556",
-  email: "contact@cassard-plombier.fr",
+  email: "cassard.sc@outlook.fr",
   city: "Nîmes",
   postalCode: "30000",
   region: "Occitanie",
