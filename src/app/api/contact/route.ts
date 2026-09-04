@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { CONTACT, COMPANY } from "@/lib/constants";
+import nodemailer from "nodemailer";
+import { CONTACT, COMPANY, LIVE_DOMAIN } from "@/lib/constants";
 
 export const runtime = "nodejs";
 
@@ -15,12 +16,32 @@ type ContactPayload = {
   website?: string;
 };
 
+type Lead = {
+  name: string;
+  email: string;
+  phone: string;
+  city: string;
+  service: string;
+  message: string;
+};
+
 const isEmail = (s: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 const isPhone = (s: string) => /^[+0-9 .()-]{8,20}$/.test(s);
 
 function escape(s: string) {
   return s.replace(/[&<>"']/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] as string
+  );
+}
+
+/**
+ * Last-resort persistence: a lead we could not email is still recoverable from
+ * the Vercel function logs. Always logged on any send failure.
+ */
+function logLead(reason: string, lead: Lead) {
+  console.error(
+    `[contact][LEAD-NON-DELIVRE] ${reason} ::`,
+    JSON.stringify({ ...lead, receivedAt: new Date().toISOString() })
   );
 }
 
@@ -33,7 +54,7 @@ export async function POST(req: Request) {
   }
 
   if (body.website && body.website.trim() !== "") {
-    // honeypot — silent success
+    // honeypot: silent success
     return NextResponse.json({ ok: true });
   }
 
@@ -54,53 +75,80 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, errors }, { status: 422 });
   }
 
-  const subject = `Nouvelle demande${service ? ` — ${service}` : ""}${city ? ` (${city})` : ""}`;
+  const lead: Lead = { name, email, phone, city, service, message };
+
+  const subject = `Nouvelle demande${service ? ` : ${service}` : ""}${city ? ` (${city})` : ""} - ${name} ${phone}`;
   const html = `
-    <h2>Nouvelle demande depuis ${COMPANY.domain}</h2>
+    <h2>Nouvelle demande depuis ${LIVE_DOMAIN}</h2>
     <p><strong>Nom :</strong> ${escape(name)}</p>
     <p><strong>Email :</strong> ${escape(email)}</p>
-    <p><strong>Téléphone :</strong> ${escape(phone)}</p>
+    <p><strong>Téléphone :</strong> <a href="tel:${escape(phone.replace(/[^+0-9]/g, ""))}">${escape(phone)}</a></p>
     ${city ? `<p><strong>Ville :</strong> ${escape(city)}</p>` : ""}
     ${service ? `<p><strong>Service :</strong> ${escape(service)}</p>` : ""}
     <p><strong>Message :</strong></p>
     <p>${escape(message).replace(/\n/g, "<br/>")}</p>
+    <hr/>
+    <p style="color:#64748b;font-size:12px">Répondre à cet email écrit directement au client.</p>
   `;
+  // Plain-text alternative: multipart messages land in the inbox far more reliably.
+  const text = [
+    `Nouvelle demande depuis ${LIVE_DOMAIN}`,
+    ``,
+    `Nom : ${name}`,
+    `Email : ${email}`,
+    `Téléphone : ${phone}`,
+    city ? `Ville : ${city}` : null,
+    service ? `Service : ${service}` : null,
+    ``,
+    `Message :`,
+    message,
+  ]
+    .filter((line) => line !== null)
+    .join("\n");
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO_EMAIL || CONTACT.email;
-  const from = process.env.CONTACT_FROM_EMAIL || `Site Cassard <noreply@${COMPANY.domain}>`;
+  const smtpUser = process.env.SMTP_USER;
+  const smtpPass = process.env.SMTP_PASS;
+  // Comma-separated list so the artisan can receive on several mailboxes.
+  const to = (process.env.CONTACT_TO_EMAIL || CONTACT.email)
+    .split(",")
+    .map((addr) => addr.trim())
+    .filter(Boolean);
+  const from = process.env.CONTACT_FROM_EMAIL || `Site ${COMPANY.shortName} <${smtpUser ?? ""}>`;
 
-  if (!apiKey) {
-    // Dev / pas de clé : on log et renvoie succès. Permet à la prod de marcher dès que la clé est ajoutée.
-    console.log("[contact] (no RESEND_API_KEY) payload:", { name, email, phone, city, service, message });
-    return NextResponse.json({ ok: true, dev: true });
+  if (!smtpUser || !smtpPass) {
+    // Never answer "ok" when nothing was sent: the visitor must be told to call
+    // instead of believing the artisan received the request.
+    logLead("SMTP_USER/SMTP_PASS absents", lead);
+    return NextResponse.json(
+      { ok: false, error: "Envoi indisponible pour le moment. Appelez-nous directement." },
+      { status: 503 }
+    );
   }
 
   try {
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        from,
-        to: [to],
-        reply_to: email,
-        subject,
-        html,
-      }),
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST || "smtp.gmail.com",
+      port: Number(process.env.SMTP_PORT || 465),
+      secure: true,
+      auth: { user: smtpUser, pass: smtpPass },
     });
 
-    if (!res.ok) {
-      const errText = await res.text();
-      console.error("[contact] Resend error:", res.status, errText);
-      return NextResponse.json({ ok: false, error: "Email send failed" }, { status: 502 });
-    }
+    await transporter.sendMail({
+      from,
+      to,
+      replyTo: `${name} <${email}>`,
+      subject,
+      html,
+      text,
+    });
 
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error("[contact] fetch error:", err);
-    return NextResponse.json({ ok: false, error: "Server error" }, { status: 500 });
+    console.error("[contact] SMTP error:", err);
+    logLead("echec SMTP", lead);
+    return NextResponse.json(
+      { ok: false, error: "L'envoi a échoué. Réessayez ou appelez-nous directement." },
+      { status: 502 }
+    );
   }
 }

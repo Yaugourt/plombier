@@ -8,6 +8,12 @@ export const COMPANY = {
   siret: "",
 } as const;
 
+/**
+ * Domain actually serving the site in production (Vercel).
+ * COMPANY.domain is the brand domain and is not registered yet.
+ */
+export const LIVE_DOMAIN = "plombiernimesdepannage.com";
+
 export const CONTACT = {
   phone: "06 19 24 25 56",
   phoneRaw: "0619242556",
