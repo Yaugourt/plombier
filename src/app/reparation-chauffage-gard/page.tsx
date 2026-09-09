@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import ServicePageTemplate, { type ServicePageData } from "@/components/ServicePageTemplate";
-import { SOCIAL_PROOF } from "@/lib/constants";
+import { COMPANY, SOCIAL_PROOF } from "@/lib/constants";
 
 const data: ServicePageData = {
     eyebrow: "Chauffage Gard 24h/24",
@@ -84,11 +84,11 @@ const data: ServicePageData = {
 export const metadata: Metadata = {
     title: "Réparation chauffage Gard 24h/24 | Cassard Plombier",
     description: `Dépannage chauffage dans le Gard : chaudière, radiateur, PAC, chauffe-eau. Toutes marques. Aides MaPrimeRénov'. ${SOCIAL_PROOF.totalReviews} avis Google.`,
-    alternates: { canonical: "https://cassard-plombier.fr/reparation-chauffage-gard" },
+    alternates: { canonical: `${COMPANY.url}/reparation-chauffage-gard` },
     openGraph: {
         title: "Réparation chauffage Gard — Cassard",
         description: "Dépannage chauffage dans le Gard, toutes marques, 24h/24.",
-        url: "https://cassard-plombier.fr/reparation-chauffage-gard",
+        url: `${COMPANY.url}/reparation-chauffage-gard`,
     },
 };
 

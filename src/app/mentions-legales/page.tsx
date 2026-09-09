@@ -5,8 +5,8 @@ import { COMPANY, CONTACT } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: { absolute: "Mentions légales | Cassard Sanitaire et Chauffage" },
-  description: "Mentions légales du site cassard-plombier.fr — Cassard Sanitaire et Chauffage, plombier urgence Nîmes et Gard.",
-  alternates: { canonical: "https://cassard-plombier.fr/mentions-legales" },
+  description: `Mentions légales du site ${COMPANY.domain} — Cassard Sanitaire et Chauffage, plombier urgence Nîmes et Gard.`,
+  alternates: { canonical: `${COMPANY.url}/mentions-legales` },
   robots: { index: true, follow: true },
 };
 

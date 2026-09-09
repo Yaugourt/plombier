@@ -1,19 +1,19 @@
-import { SOCIAL_PROOF, GOOGLE_MAPS_URL } from "@/lib/constants";
+import { COMPANY, GOOGLE_MAPS_URL, SOCIAL_PROOF } from "@/lib/constants";
 
 export default function SchemaOrg() {
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "Plumber",
-    "@id": "https://cassard-plombier.fr/#organization",
+    "@id": `${COMPANY.url}/#organization`,
     name: "Cassard Sanitaire et Chauffage",
     alternateName: "Cassard Plombier Nîmes",
     description:
       "Urgence plombier Nîmes Gard - Intervention rapide 24h/24 dans le Gard (30), Hérault (34), Bouches-du-Rhône (13) et Vaucluse (84). Spécialiste plomberie d'urgence, sanitaire et chauffage.",
-    url: "https://cassard-plombier.fr",
+    url: COMPANY.url,
     telephone: "+33619242556",
     email: "cassard.sc@outlook.fr",
-    logo: "https://cassard-plombier.fr/logo.png",
-    image: "https://cassard-plombier.fr/og-image.jpg",
+    logo: `${COMPANY.url}/logo-full.svg`,
+    image: `${COMPANY.url}/og-image.svg`,
     priceRange: "€€",
     currenciesAccepted: "EUR",
     paymentAccepted: "Cash, Credit Card, Debit Card, Bank Transfer",
@@ -157,12 +157,7 @@ export default function SchemaOrg() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Cassard Sanitaire et Chauffage",
-    url: "https://cassard-plombier.fr",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: "https://cassard-plombier.fr/recherche?q={search_term_string}",
-      "query-input": "required name=search_term_string",
-    },
+    url: COMPANY.url,
   };
 
   return (

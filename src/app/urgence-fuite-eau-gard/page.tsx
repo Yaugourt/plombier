@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import ServicePageTemplate, { type ServicePageData } from "@/components/ServicePageTemplate";
-import { SOCIAL_PROOF } from "@/lib/constants";
+import { COMPANY, SOCIAL_PROOF } from "@/lib/constants";
 
 const data: ServicePageData = {
     eyebrow: "Urgence Gard 24h/24",
@@ -84,11 +84,11 @@ const data: ServicePageData = {
 export const metadata: Metadata = {
     title: "Urgence fuite d'eau Gard 24h/24 | Cassard Plombier",
     description: `Urgence fuite d'eau dans le Gard : intervention en moins de 30 minutes à Nîmes, Alès, Uzès. Détection sans casse, garantie décennale. ${SOCIAL_PROOF.totalReviews} avis Google.`,
-    alternates: { canonical: "https://cassard-plombier.fr/urgence-fuite-eau-gard" },
+    alternates: { canonical: `${COMPANY.url}/urgence-fuite-eau-gard` },
     openGraph: {
         title: "Urgence fuite d'eau Gard 24h/24 — Cassard",
         description: "Fuite d'eau dans le Gard ? Intervention en moins de 30 minutes, 24h/24.",
-        url: "https://cassard-plombier.fr/urgence-fuite-eau-gard",
+        url: `${COMPANY.url}/urgence-fuite-eau-gard`,
     },
 };
 

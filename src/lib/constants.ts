@@ -2,17 +2,12 @@ export const COMPANY = {
   name: "Cassard Sanitaire et Chauffage",
   shortName: "Cassard",
   tagline: "Sanitaire & Chauffage",
-  domain: "cassard-plombier.fr",
-  url: "https://cassard-plombier.fr",
+  domain: "plombiernimesdepannage.com",
+  // www is the served host: the apex 307-redirects to it.
+  url: "https://www.plombiernimesdepannage.com",
   // TODO: fill with real SIRET (14 digits). Empty string hides the mention in the footer.
   siret: "",
 } as const;
-
-/**
- * Domain actually serving the site in production (Vercel).
- * COMPANY.domain is the brand domain and is not registered yet.
- */
-export const LIVE_DOMAIN = "plombiernimesdepannage.com";
 
 export const CONTACT = {
   phone: "06 19 24 25 56",

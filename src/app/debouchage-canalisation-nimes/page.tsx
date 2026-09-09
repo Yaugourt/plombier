@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import ServicePageTemplate, { type ServicePageData } from "@/components/ServicePageTemplate";
-import { SOCIAL_PROOF } from "@/lib/constants";
+import { COMPANY, SOCIAL_PROOF } from "@/lib/constants";
 
 const data: ServicePageData = {
     eyebrow: "Débouchage Nîmes 24h/24",
@@ -85,11 +85,11 @@ const data: ServicePageData = {
 export const metadata: Metadata = {
     title: "Débouchage canalisation Nîmes 24h/24 | Cassard Plombier",
     description: `Débouchage de canalisation à Nîmes en 20 à 30 minutes. Furet, hydrocurage, caméra. ${SOCIAL_PROOF.totalReviews} avis Google. Devis gratuit.`,
-    alternates: { canonical: "https://cassard-plombier.fr/debouchage-canalisation-nimes" },
+    alternates: { canonical: `${COMPANY.url}/debouchage-canalisation-nimes` },
     openGraph: {
         title: "Débouchage canalisation Nîmes — Cassard",
         description: "Canalisation bouchée à Nîmes ? Intervention en 20 à 30 minutes, 24h/24.",
-        url: "https://cassard-plombier.fr/debouchage-canalisation-nimes",
+        url: `${COMPANY.url}/debouchage-canalisation-nimes`,
     },
 };
 

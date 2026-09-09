@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://cassard-plombier.fr/sitemap.xml
+Sitemap: https://www.plombiernimesdepannage.com/sitemap.xml
 
 # Block admin areas if any
 Disallow: /api/

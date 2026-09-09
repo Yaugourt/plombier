@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: { absolute: "Politique de confidentialité | Cassard Sanitaire et Chauffage" },
   description:
     "Politique de confidentialité et protection des données personnelles — Cassard Sanitaire et Chauffage, plombier Nîmes Gard.",
-  alternates: { canonical: "https://cassard-plombier.fr/politique-confidentialite" },
+  alternates: { canonical: `${COMPANY.url}/politique-confidentialite` },
   robots: { index: true, follow: true },
 };
 

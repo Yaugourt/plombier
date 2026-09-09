@@ -1,7 +1,8 @@
 import { MetadataRoute } from "next";
+import { COMPANY } from "@/lib/constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://cassard-plombier.fr";
+  const baseUrl = COMPANY.url;
 
   return [
     {

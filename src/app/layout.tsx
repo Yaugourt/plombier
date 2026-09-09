@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import SchemaOrg from "@/components/SchemaOrg";
 import StickyCallButton from "@/components/StickyCallButton";
 import ScrollReveal from "@/components/ScrollReveal";
+import { COMPANY } from "@/lib/constants";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -20,7 +21,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://cassard-plombier.fr"),
+  metadataBase: new URL(COMPANY.url),
   title: {
     default: "Urgence Plombier Nîmes Gard 24h/24 | Cassard Sanitaire et Chauffage",
     template: "%s | Urgence Plombier Nîmes Gard",
@@ -59,7 +60,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    url: "https://cassard-plombier.fr",
+    url: COMPANY.url,
     siteName: "Cassard Sanitaire et Chauffage",
     title: "Urgence Plombier Nîmes Gard 24h/24 | Intervention rapide",
     description:
@@ -92,7 +93,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://cassard-plombier.fr",
+    canonical: COMPANY.url,
   },
   verification: {
     // À remplir avec les vrais codes de vérification

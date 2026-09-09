@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import { CONTACT, COMPANY, LIVE_DOMAIN } from "@/lib/constants";
+import { CONTACT, COMPANY } from "@/lib/constants";
 
 export const runtime = "nodejs";
 
@@ -79,7 +79,7 @@ export async function POST(req: Request) {
 
   const subject = `Nouvelle demande${service ? ` : ${service}` : ""}${city ? ` (${city})` : ""} - ${name} ${phone}`;
   const html = `
-    <h2>Nouvelle demande depuis ${LIVE_DOMAIN}</h2>
+    <h2>Nouvelle demande depuis ${COMPANY.domain}</h2>
     <p><strong>Nom :</strong> ${escape(name)}</p>
     <p><strong>Email :</strong> ${escape(email)}</p>
     <p><strong>Téléphone :</strong> <a href="tel:${escape(phone.replace(/[^+0-9]/g, ""))}">${escape(phone)}</a></p>
@@ -92,7 +92,7 @@ export async function POST(req: Request) {
   `;
   // Plain-text alternative: multipart messages land in the inbox far more reliably.
   const text = [
-    `Nouvelle demande depuis ${LIVE_DOMAIN}`,
+    `Nouvelle demande depuis ${COMPANY.domain}`,
     ``,
     `Nom : ${name}`,
     `Email : ${email}`,
